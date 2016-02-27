@@ -1,0 +1,38 @@
+{
+    "items": {
+        "sword1": {
+            "name": "Sword Of Mighty Cruel",
+            "attack": 10,
+            "defense": 4,
+            "type": "Weapon"
+        },
+        "axe1": {
+            "name": "Axe Of Glory",
+            "attack": 13,
+            "defense": 1,
+            "type": "Weapon"
+        },
+        "shield1": {
+            "name": "Unbreakable Shield",
+            "attack": 1,
+            "defense": 13,
+            "type": "Weapon"
+        },
+        "knife1": {
+            "name": "Shadow Knife",
+            "attack": 7,
+            "defense": 5,
+            "type": "Weapon"
+        },
+        "hat1": {
+            "name": "Pazanyachya Kepa 228",
+            "attack": 7,
+            "defense": 5,
+            "type": "HeadArmor"
+        }
+    },
+
+    "hero": {
+        "bag": ["sword1", "axe1"]
+    }
+}
