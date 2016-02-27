@@ -1,3 +1,4 @@
+import random
 from items import Item, HeadArmor, BodyArmor, BootsArmor
 
 __author__ = 'jaklimoff'
@@ -21,10 +22,13 @@ class Bag:
 
 class Unit:
     name = "anon"
-
+    enemies = None
     hp = 100
     strength = 1
     agility = 1
+
+    def __str__(self):
+        return self.name
 
     @property
     def defense(self):
@@ -73,6 +77,12 @@ class Unit:
             }
         }
 
+    def battle_begin(self, enemies):
+        if not isinstance(enemies, list):
+            enemies = [enemies]
+
+        self.enemies = enemies
+
     def wear(self, item, slot):
         if slot in self.slots:
             item_slot = self.slots[slot]
@@ -86,6 +96,19 @@ class Unit:
                 return prev_item
         return False
 
+    def hit(self, unit, point):
+        self.unit = unit
+        self.hit_point = point
+
+    def block(self, point):
+        self.block_point = point
+
 
 class Knight(Unit):
     pass
+
+
+class Enemy(Unit):
+    def next_turn(self):
+        self.hit(self.enemies[0], random.randint(0, 2))
+        self.block(random.randint(0, 2))

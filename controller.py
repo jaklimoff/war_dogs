@@ -28,31 +28,47 @@ class Controller:
 
 
 class FightController(Controller):
-    def __init__(self, hero, enenmy):
+    def __init__(self, hero):
         Controller.__init__(self)
-        self.enenmy = enenmy
         self.hero = hero
 
         cmd = {
-            "ch": {
-                "description": "Show hero stat",
-                "func": self.show_hero_stat
-            },
-            "inv": {
-                "description": "Show hero inventory",
-                "func": self.show_hero_inventory
-            },
-            "wear": {
-                "description": "Wear to hero [wear {item_index} {hero_slot}]",
-                "func": self.wear_to_hero
-            },
-            "fight": {
-                "description": "Get down to fight, MF!",
-                "func": self.fight
+            "hit": {
+                "description": "Hit, MF, HIT!",
+                "func": self.hit_the_enemy
             },
         }
         self.commands.update(cmd)
 
+    def _show_list(self, iter):
+        count = 0
+        for value in iter:
+            print "[%s] %s" % (count, value)
+            count += 1
+
+    def hit_the_enemy(self):
+        self._show_list(self.hero.enemies)
+        enemy_id = raw_input("Enter enemy ID: ")
+        enemy = self.hero.enemies[int(enemy_id)]
+
+        points = ["Head", "Body", "Legs"]
+        self._show_list(points)
+        hit_point = raw_input("What point to hit? ")
+        self.hero.hit(enemy, int(hit_point))
+
+        self._show_list(points)
+        block_point = raw_input("What point to block? ")
+        self.hero.block(int(block_point))
+
+        # print "HIT! %s to %s and blocked %s" % (enemy, hit_point, block_point)
+
+        return True
+
+    def show_battle_result(self, unit, damage, enemy):
+        if damage > 0:
+            print "{unit} hit {enemy} with {damage} damage!".format(unit=unit.name, enemy=enemy.name, damage=damage)
+        else:
+            print "{enemy} blocked the {unit} attack".format(unit=unit.name, enemy=enemy.name, damage=damage)
 
 class RestController(Controller):
     def __init__(self, hero):
