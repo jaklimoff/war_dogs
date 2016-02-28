@@ -116,6 +116,10 @@ class RestController(Controller):
                 "description": "Get down to fight, MF!",
                 "func": self.fight
             },
+            "use": {
+                "description": "Wanna drink some potions? [use {item_index}]",
+                "func": self.use_a_potion
+            },
         }
         self.commands.update(cmd)
 
@@ -179,6 +183,13 @@ class RestController(Controller):
         else:
             print "Error, while wearing!"
         return True
+
+    def use_a_potion(self):
+        self.show_hero_inventory()
+        potion_index = raw_input("Choose your potion [id]! :")
+        items = self.hero.bag.get_items()
+        potion = items[int(potion_index)]
+        self.hero.use(potion)
 
     def fight(self):
         print "Lets the battle begin!"

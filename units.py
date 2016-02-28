@@ -29,6 +29,13 @@ class Unit:
     strength = 1
     agility = 1
 
+    def use(self, potion):
+        potion.uses -= 1
+        self.hp += potion.restored_hp
+        if potion.uses <= 0:
+            self.bag.remove_item(potion)
+
+
     def __str__(self):
         return self.name
 

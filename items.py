@@ -1,6 +1,5 @@
 __author__ = 'jaklimoff'
 
-
 class Item:
     weight = 0
     defense = 0
@@ -51,3 +50,24 @@ naked_body.name = "Naked"
 naked_body.attack = 1
 naked_body.defense = 1
 naked_body.tough = 1000000000000000000
+
+class Potion(Item):
+    uses = 0
+
+
+class HealingPotion(Potion):
+    name = "healing potion"
+    restored_hp = 10
+    uses = 1
+
+big_healing_potion = HealingPotion
+big_healing_potion.name = "big healing potion"
+big_healing_potion.uses = 3
+
+small_healing_potion = HealingPotion
+small_healing_potion.name = "small healing potion"
+small_healing_potion.uses = 1
+
+
+
+

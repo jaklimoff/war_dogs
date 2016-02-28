@@ -1,5 +1,4 @@
 import random
-
 from items import Item
 from settings import Settings
 from units import Knight, Enemy
@@ -30,6 +29,8 @@ class World:
         self.knight.bag.add_item(Item("shield"))
         self.knight.bag.add_item(Item("tourch"))
         self.knight.bag.add_item(Item("fri potato"))
+        self.knight.bag.add_item(Item("big healing potion"))
+
 
         while True:
             self.rest()
