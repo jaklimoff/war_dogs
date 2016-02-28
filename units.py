@@ -1,5 +1,6 @@
 import random
 from items import Item, HeadArmor, BodyArmor, BootsArmor
+from controller import RestController
 
 __author__ = 'jaklimoff'
 
@@ -23,6 +24,7 @@ class Bag:
 class Unit:
     name = "anon"
     enemies = None
+    choosen_enemy = None
     hp = 100
     strength = 1
     agility = 1
@@ -34,6 +36,10 @@ class Unit:
         return self.name
 
     @property
+    def is_alive(self):
+        return self.hp > 0
+
+    @property
     def defense(self):
         defense = 0
         for slot in self.slots:
@@ -43,10 +49,19 @@ class Unit:
 
     @property
     def attack(self):
+        def percentage(part, whole):
+            return 20 * float(part)/float(whole)
+
+        def pervalue(percent, whole):
+            return (percent * whole) / 100.0
+
         attack = 0
         for slot in self.slots:
             item = self.slots[slot]["item"]
             attack += item.attack
+
+        attack_bonus_percents = percentage(self.strength, 10)
+        attack += pervalue(attack_bonus_percents, attack)  # add attack bonus percents
         return attack
 
     def __init__(self, name):
@@ -100,7 +115,7 @@ class Unit:
         return False
 
     def hit(self, unit, point):
-        self.unit = unit
+        self.choosen_enemy = unit
         self.hit_point = point
 
     def block(self, point):
@@ -123,6 +138,7 @@ class Unit:
 
 
 class Knight(Unit):
+    map = None
     pass
 
 
