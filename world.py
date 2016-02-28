@@ -13,9 +13,10 @@ import controller
 class World:
     knight = None
 
-    def __init__(self, knight):
+    def __init__(self, knight, settings):
 
 
+        self.settings = settings
         print "=" * 10
         print "Hello %s! Its a tough time. Be aware of monsters and step_mother!" % knight.name
         print "=" * 10
@@ -95,4 +96,4 @@ if __name__ == "__main__":
 
     name = raw_input("Enter your name:")
     knight = Knight(name)
-    world = World(knight)
+    world = World(knight, settings)
