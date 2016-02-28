@@ -17,12 +17,7 @@ class Bag:
             created_item = None
             for it in self.items:
                 if it.name == item.name:
-                    created_item = it
-<<<<<<< HEAD
                     created_item.amount += 1
-=======
-                    created_item.count += 1
->>>>>>> 3666266e2a79691d50939cc244312e8e6cdb25bb
             if not created_item:
                 self.items.append(item)
         else:
@@ -33,7 +28,7 @@ class Bag:
       #  if item.multiple:
       #  if count == 1:
       #      self.items.remove(item)
-        else:
+      #  else:
             self.items.remove(item)
 
 
