@@ -18,7 +18,6 @@ class Bag:
             for it in self.items:
                 if it.name == item.name:
                     created_item.amount += 1
-                    created_item.count += 1
             if not created_item:
                 self.items.append(item)
         else:
