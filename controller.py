@@ -169,7 +169,7 @@ class RestController(Controller):
         index = 0
         for item in items:
             if item.visible_in_bag:
-                print "     [%s] %s" % (index, item.name)
+                print "     [%s] %s (%s)" % (index, item.name, item.amount)
             index += 1
         print "=" * 39
         return True
