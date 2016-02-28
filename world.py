@@ -42,8 +42,8 @@ class World:
                 self.knight.hit_point = 100
                 print "Knight is alive now!"
 
-            command_line = raw_input("[REST] Command: ")
-            result = rest_controller.command(command_line)
+
+            result = rest_controller.command()
             if not result:
                 break
 
@@ -62,7 +62,7 @@ class World:
         fight_controller = controller.FightController(self.knight)
         while True:
             command_line = raw_input("[FIGHT] Command: ")
-            result = fight_controller.command(command_line)
+            result = fight_controller.command()
             enemy.next_turn()
 
             def process(unit):

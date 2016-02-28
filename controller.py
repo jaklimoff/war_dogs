@@ -4,6 +4,8 @@ __author__ = 'jaklimoff'
 
 
 class Controller:
+    name = "DEFAULT"
+
     def __init__(self):
         self.commands = {
             "list": {
@@ -12,7 +14,8 @@ class Controller:
             },
         }
 
-    def command(self, command):
+    def command(self):
+        command = raw_input("[%s] Command: " % self.name)
         arguments = command.split(" ")
         cmd = arguments[0]
         args = arguments[1:]
@@ -33,6 +36,7 @@ class Controller:
 
 
 class FightController(Controller):
+    name = "FIGHT"
     points = ["Head", "Body", "Legs"]
 
     def __init__(self, hero):
@@ -90,6 +94,8 @@ class FightController(Controller):
         print "{name} is dead!"
 
 class RestController(Controller):
+    name = "REST"
+
     def __init__(self, hero):
         Controller.__init__(self)
         self.hero = hero
