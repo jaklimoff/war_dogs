@@ -17,7 +17,10 @@ class Controller:
         cmd = arguments[0]
         args = arguments[1:]
         a = self.commands.get(cmd, self.commands["list"])
-        return a['func'](*args)
+        try:
+            return a['func'](*args)
+        except TypeError:
+            print "Smth worng... oO"
 
     def list_of_commands(self):
         print "=" * 15
@@ -83,6 +86,8 @@ class FightController(Controller):
         else:
             print random.choice(self.lose_phrases).format(unit=unit.name, enemy=enemy.name, damage=damage)
 
+    def show_final_battle_result(self, unit):
+        print "{name} is dead!"
 
 class RestController(Controller):
     def __init__(self, hero):
