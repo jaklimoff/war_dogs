@@ -1,5 +1,6 @@
 import random
 from items import Item, HeadArmor, BodyArmor, BootsArmor
+from controller import RestController
 
 __author__ = 'jaklimoff'
 

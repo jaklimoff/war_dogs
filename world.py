@@ -1,8 +1,14 @@
 import random
+
 from items import Item
 from settings import Settings
 from units import Knight, Unit, Enemy
+
 from shop import Map
+
+from controller import VisualEffects
+from units import Knight, Enemy
+
 
 __author__ = 'jaklimoff'
 
@@ -11,20 +17,23 @@ import controller
 
 
 class World:
+
     knight = None
 
-    def __init__(self, knight):
-        self.rest_controller = controller.RestController(knight)
-        print "=" * 10
-        print "Hello %s! Its a tough time. Be aware of monsters and step_mother!" % knight.name
-        print "=" * 10
+    def __init__(self, knight, settings):
+
+
+        self.settings = settings
+        VisualEffects.hello(knight)
+
 
         self.knight = knight
         self.knight.hp = 67
         sword = Item("sword")
-        sword.attack = 20
+        sword.attack = 100
         sword.defense = 20
         self.knight.bag.add_item(sword)
+        self.knight.wear(sword, 'rh')
         self.knight.bag.add_item(Item("shield"))
         self.knight.bag.add_item(Item("tourch"))
         self.knight.bag.add_item(Item("fri potato"))
@@ -39,8 +48,12 @@ class World:
 
     def rest(self):
         while True:
-            command_line = raw_input("[REST] Command: ")
-            result = self.rest_controller.command(command_line)
+            rest_controller = controller.RestController(knight)
+            if not self.knight.is_alive:
+                self.knight.hit_point = 100
+                print "Knight is alive now!"
+
+            result = rest_controller.command()
             if not result:
                 break
 
@@ -53,13 +66,15 @@ class World:
         enemy.battle_begin(self.knight)
         knight.battle_begin(enemy)
 
+        print "Health of enemy" # added it
         print "Enemy: %s" % enemy.hp
+        print "Health of hero" # added it
         print "Knight: %s" % self.knight.hp
 
         fight_controller = controller.FightController(self.knight)
         while True:
-            command_line = raw_input("[FIGHT] Command: ")
-            result = fight_controller.command(command_line)
+            fight_controller.list_of_commands()
+            result = fight_controller.command()
             enemy.next_turn()
 
             def process(unit):
@@ -75,15 +90,22 @@ class World:
             for u in units:
                 process(u)
 
-
             print "Enemy: %s" % enemy.hp
             print "Knight: %s" % self.knight.hp
 
-            if not result:
+            end = False
+            for u in units:
+                if not u.is_alive:
+                    fight_controller.show_final_battle_result(u)
+                    end = True
+
+            if end:
                 break
 
 if __name__ == "__main__":
     settings = Settings("settings.json")
     name = raw_input("Enter your name:")
     knight = Knight(name)
-    world = World(knight)
+
+    world = World(knight, settings)
+
