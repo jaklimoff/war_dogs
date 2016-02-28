@@ -1,3 +1,4 @@
+import random
 from items import Item
 from settings import Settings
 from units import Knight, Unit, Enemy
@@ -59,18 +60,18 @@ class World:
             result = fight_controller.command(command_line)
             enemy.next_turn()
 
-            damage = 0
-            if self.knight.hit_point != enemy.block_point:
-                damage = self.knight.attack
-                enemy.hp -= damage
-            fight_controller.show_battle_result(knight, damage, enemy)
+            def process(unit):
+                enemy = unit.choosen_enemy
+                damage = 0
+                if unit.hit_point != enemy.block_point:
+                    damage = unit.attack
+                    enemy.hp -= damage
+                fight_controller.show_battle_result(unit, damage, enemy)
 
-            damage = 0
-            if enemy.hit_point != self.knight.block_point:
-                damage = enemy.attack
-                self.knight.hp -= damage
-            fight_controller.show_battle_result(enemy, damage, knight)
-
+            units = [self.knight, enemy]
+            random.shuffle(units)
+            for u in units:
+                process(u)
 
 
             print "Enemy: %s" % enemy.hp
