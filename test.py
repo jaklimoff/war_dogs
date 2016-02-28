@@ -39,3 +39,10 @@
 # print "+ May the Force be with you!            +"
 # print "+" * 41
 
+
+# print " Hey %s. What do you want to do now?" % hero
+print "+" * 33
+print " + You entered in a fight mode. +"
+print " + Let's kill some monsters!    +"
+print " + You can start the battle now.+"
+print "+" * 33
