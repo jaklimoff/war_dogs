@@ -29,7 +29,7 @@ class Bag:
       #  if count == 1:
       #      self.items.remove(item)
       #  else:
-            self.items.remove(item)
+        self.items.remove(item)
 
 
 
