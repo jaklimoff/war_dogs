@@ -149,8 +149,13 @@ class RestController(Controller):
         print "=" * 15
         return True
 
-    def wear_to_hero(self, item_index=None, slot=None):
-        if item_index is None:
+    def wear_to_hero(self):
+
+        self.show_hero_inventory()
+        item_index = raw_input("Choose your item [id]! :")
+        self.show_hero_slots()
+        slot = raw_input("Choose slot! :")
+        if slot is None:
             return True
 
         items = self.hero.bag.get_items()
