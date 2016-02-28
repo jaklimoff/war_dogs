@@ -1,3 +1,5 @@
+import random
+
 __author__ = 'jaklimoff'
 
 
@@ -28,6 +30,8 @@ class Controller:
 
 
 class FightController(Controller):
+    points = ["Head", "Body", "Legs"]
+
     def __init__(self, hero):
         Controller.__init__(self)
         self.hero = hero
@@ -51,12 +55,11 @@ class FightController(Controller):
         enemy_id = raw_input("Enter enemy ID: ")
         enemy = self.hero.enemies[int(enemy_id)]
 
-        points = ["Head", "Body", "Legs"]
-        self._show_list(points)
+        self._show_list(self.points)
         hit_point = raw_input("What point to hit? ")
         self.hero.hit(enemy, int(hit_point))
 
-        self._show_list(points)
+        self._show_list(self.points)
         block_point = raw_input("What point to block? ")
         self.hero.block(int(block_point))
 
@@ -64,11 +67,22 @@ class FightController(Controller):
 
         return True
 
+    # TODO: Add multiple phrazes for attack
+
+    win_phrases = [
+        "{unit} hit {enemy} to {point} with {damage} damage!"
+    ]
+    lose_phrases = [
+        "{enemy} blocked the {unit} attack!"
+    ]
+
     def show_battle_result(self, unit, damage, enemy):
         if damage > 0:
-            print "{unit} hit {enemy} with {damage} damage!".format(unit=unit.name, enemy=enemy.name, damage=damage)
+            print random.choice(self.win_phrases).format(unit=unit.name, enemy=enemy.name, damage=damage,
+                                                         point=unit.hit_point)
         else:
-            print "{enemy} blocked the {unit} attack".format(unit=unit.name, enemy=enemy.name, damage=damage)
+            print random.choice(self.lose_phrases).format(unit=unit.name, enemy=enemy.name, damage=damage)
+
 
 class RestController(Controller):
     def __init__(self, hero):
@@ -112,7 +126,7 @@ class RestController(Controller):
 
         """.format(
             name=self.hero.name,
-            health="[%s%s] %s%%" % ("#" * (self.hero.hp/10), "_" * ((100 - self.hero.hp)/10), self.hero.hp),
+            health="[%s%s] %s%%" % ("#" * (self.hero.hp / 10), "_" * ((100 - self.hero.hp) / 10), self.hero.hp),
             agility=self.hero.agility,
             strength=self.hero.strength,
         )
