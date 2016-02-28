@@ -13,7 +13,16 @@ class Bag:
         return self.items
 
     def add_item(self, item):
-        self.items.append(item)
+        if item.multiple:
+            created_item = None
+            for it in self.items:
+                if it.name == item.name:
+                    created_item = it
+                    created_item.count += 1
+            if not created_item:
+                self.items.append(item)
+        else:
+            self.items.append(item)
         return self
 
     def remove_item(self, item):
