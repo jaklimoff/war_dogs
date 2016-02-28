@@ -2,6 +2,15 @@ import random
 
 __author__ = 'jaklimoff'
 
+class VisualEffects:
+    @staticmethod
+    def hello(knight):
+        print "+" * 39
+        print " Hello %s! Its a tough time." % knight.name
+        print " Be aware of monsters and step_mother! "
+        print " May the Force be with you! "
+        print "+" * 39
+
 
 class Controller:
     name = "DEFAULT"
@@ -26,12 +35,12 @@ class Controller:
             print "Smth worng... oO"
 
     def list_of_commands(self):
-        print "=" * 15
+        print "=" * 39
         print "List of available commands"
         for key in self.commands:
             desc = self.commands[key]['description']
             print "[%s] : %s" % (key, desc)
-        print "=" * 15
+        print "=" * 39
         return True
 
 
@@ -116,9 +125,15 @@ class RestController(Controller):
                 "description": "Get down to fight, MF!",
                 "func": self.fight
             },
+<<<<<<< HEAD
             "use": {
                 "description": "Wanna drink some potions? [use {item_index}]",
                 "func": self.use_a_potion
+=======
+            "map": {
+                "description": "Return available places from Map",
+                "func": self.get_places
+>>>>>>> 62169dc7fdc9b899bc9fe46f0e404784364424bb
             },
         }
         self.commands.update(cmd)
@@ -131,7 +146,7 @@ class RestController(Controller):
             print "        {name} ({slot}) :>> {item_name}".format(slot=slot, name=slot_name, item_name=item.name)
 
     def show_hero_stat(self):
-        print "=" * 15
+        print "=" * 39
         print """
         Hero name: {name}
         HP: {health}
@@ -146,22 +161,22 @@ class RestController(Controller):
             strength=self.hero.strength,
         )
         self.show_hero_slots()
-        print "=" * 15
+        print "=" * 39
 
         return True
 
     def show_hero_inventory(self):
-        print "=" * 15
+        print "=" * 39
         print """
-        === Inventory ===
+        *** Inventory ***
         """
         items = self.hero.bag.get_items()
         index = 0
         for item in items:
             if item.visible_in_bag:
-                print "     [%s] %s" % (index, item.name)
+                print "     [%s] %s (%s)" % (index, item.name, item.amount)
             index += 1
-        print "=" * 15
+        print "=" * 39
         return True
 
     def wear_to_hero(self):
@@ -177,9 +192,9 @@ class RestController(Controller):
         item = items[int(item_index)]
 
         if self.hero.wear(item, slot):
-            print "=" * 15
+            print "=" * 39
             self.show_hero_slots()
-            print "=" * 15
+            print "=" * 39
         else:
             print "Error, while wearing!"
         return True
@@ -194,3 +209,10 @@ class RestController(Controller):
     def fight(self):
         print "Lets the battle begin!"
         return False
+
+    def get_places(self):
+        return self.hero.map
+
+    def go_to(self, place):
+        print self.hero.name+" went to the "+place.name
+

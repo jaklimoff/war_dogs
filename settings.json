@@ -34,5 +34,14 @@
 
     "hero": {
         "bag": ["sword1", "axe1"]
+    },
+
+    "shop": {
+        "items":{
+            "hat1":{
+                "count":1,
+                "price":100
+            }
+        }
     }
 }

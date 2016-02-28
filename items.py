@@ -7,7 +7,15 @@ class Item:
 
     def __init__(self, item_name="brick", visible_in_bag=True):
         self.visible_in_bag = visible_in_bag
+        self.amount = 1
+        self.multiple = False
         self.name = item_name
+
+class Coins(Item):
+    def __init__(self):
+        Item.__init__(self)
+        self.name = "Coins"
+        self.multiple = True
 
 
 fist = Item

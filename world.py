@@ -1,6 +1,12 @@
 import random
 from items import Item
-from settings import Settings
+
+from items import Item, Coins
+from units import Knight, Unit, Enemy
+
+from shop import Map
+
+from controller import VisualEffects
 from units import Knight, Enemy
 
 
@@ -9,15 +15,17 @@ __author__ = 'jaklimoff'
 import controller
 
 
+
 class World:
+
     knight = None
 
-    def __init__(self, knight):
+    def __init__(self, knight, settings):
 
 
-        print "=" * 10
-        print "Hello %s! Its a tough time. Be aware of monsters and step_mother!" % knight.name
-        print "=" * 10
+        self.settings = settings
+        VisualEffects.hello(knight)
+
 
         self.knight = knight
         self.knight.hp = 67
@@ -27,9 +35,17 @@ class World:
         self.knight.bag.add_item(sword)
         self.knight.wear(sword, 'rh')
         self.knight.bag.add_item(Item("shield"))
+        self.knight.bag.add_item(Item("shield"))
+        coin = Coins()
+        coin.amount = 21
+        self.knight.bag.add_item(coin)
         self.knight.bag.add_item(Item("tourch"))
         self.knight.bag.add_item(Item("fri potato"))
         self.knight.bag.add_item(Item("big healing potion"))
+
+
+        self.map = Map()
+        self.knight.map = self.map
 
 
         while True:
@@ -42,7 +58,6 @@ class World:
             if not self.knight.is_alive:
                 self.knight.hit_point = 100
                 print "Knight is alive now!"
-
 
             result = rest_controller.command()
             if not result:
@@ -57,12 +72,14 @@ class World:
         enemy.battle_begin(self.knight)
         knight.battle_begin(enemy)
 
+        print "Health of enemy" # added it
         print "Enemy: %s" % enemy.hp
+        print "Health of hero" # added it
         print "Knight: %s" % self.knight.hp
 
         fight_controller = controller.FightController(self.knight)
         while True:
-            command_line = raw_input("[FIGHT] Command: ")
+            fight_controller.list_of_commands()
             result = fight_controller.command()
             enemy.next_turn()
 
@@ -93,7 +110,8 @@ class World:
 
 if __name__ == "__main__":
     settings = Settings("settings.json")
-
     name = raw_input("Enter your name:")
     knight = Knight(name)
-    world = World(knight)
+
+    world = World(knight, settings)
+
