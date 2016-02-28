@@ -3,6 +3,9 @@ import random
 from items import Item
 from settings import Settings
 from units import Knight, Unit, Enemy
+
+from shop import Map
+
 from controller import VisualEffects
 from units import Knight, Enemy
 
@@ -12,7 +15,9 @@ __author__ = 'jaklimoff'
 import controller
 
 
+
 class World:
+
     knight = None
 
     def __init__(self, knight, settings):
@@ -20,6 +25,7 @@ class World:
 
         self.settings = settings
         VisualEffects.hello(knight)
+
 
         self.knight = knight
         self.knight.hp = 67
@@ -31,6 +37,10 @@ class World:
         self.knight.bag.add_item(Item("shield"))
         self.knight.bag.add_item(Item("tourch"))
         self.knight.bag.add_item(Item("fri potato"))
+
+        self.map = Map()
+        self.knight.map = self.map
+
 
         while True:
             self.rest()
@@ -94,7 +104,8 @@ class World:
 
 if __name__ == "__main__":
     settings = Settings("settings.json")
-
     name = raw_input("Enter your name:")
     knight = Knight(name)
+
     world = World(knight, settings)
+
