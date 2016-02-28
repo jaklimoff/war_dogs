@@ -2,12 +2,11 @@ import random
 from items import Item
 from settings import Settings
 from units import Knight, Unit, Enemy
+from shop import Map
 
 __author__ = 'jaklimoff'
 
 import controller
-
-
 
 
 
@@ -16,7 +15,6 @@ class World:
 
     def __init__(self, knight):
         self.rest_controller = controller.RestController(knight)
-
         print "=" * 10
         print "Hello %s! Its a tough time. Be aware of monsters and step_mother!" % knight.name
         print "=" * 10
@@ -30,6 +28,10 @@ class World:
         self.knight.bag.add_item(Item("shield"))
         self.knight.bag.add_item(Item("tourch"))
         self.knight.bag.add_item(Item("fri potato"))
+
+        self.map = Map()
+        self.knight.map = self.map
+
 
         while True:
             self.rest()
@@ -82,7 +84,6 @@ class World:
 
 if __name__ == "__main__":
     settings = Settings("settings.json")
-
     name = raw_input("Enter your name:")
     knight = Knight(name)
     world = World(knight)

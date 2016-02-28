@@ -105,6 +105,10 @@ class RestController(Controller):
                 "description": "Get down to fight, MF!",
                 "func": self.fight
             },
+            "map": {
+                "description": "Return available places from Map",
+                "func": self.get_places
+            },
         }
         self.commands.update(cmd)
 
@@ -167,3 +171,10 @@ class RestController(Controller):
     def fight(self):
         print "Lets the battle begin!"
         return False
+
+    def get_places(self):
+        return self.hero.map
+
+    def go_to(self, place):
+        print self.hero.name+" went to the "+place.name
+
