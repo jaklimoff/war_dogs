@@ -1,6 +1,6 @@
 import random
 
-from items import Item
+from items import Item, Coins
 from settings import Settings
 from units import Knight, Enemy
 
@@ -28,6 +28,10 @@ class World:
         self.knight.bag.add_item(sword)
         self.knight.wear(sword, 'rh')
         self.knight.bag.add_item(Item("shield"))
+        self.knight.bag.add_item(Item("shield"))
+        coin = Coins()
+        coin.amount = 21
+        self.knight.bag.add_item(coin)
         self.knight.bag.add_item(Item("tourch"))
         self.knight.bag.add_item(Item("fri potato"))
 
