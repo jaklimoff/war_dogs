@@ -13,6 +13,8 @@ class VisualEffects:
 
 
 class Controller:
+    name = "DEFAULT"
+
     def __init__(self):
         self.commands = {
             "list": {
@@ -21,12 +23,16 @@ class Controller:
             },
         }
 
-    def command(self, command):
+    def command(self):
+        command = raw_input("[%s] Command: " % self.name)
         arguments = command.split(" ")
         cmd = arguments[0]
         args = arguments[1:]
         a = self.commands.get(cmd, self.commands["list"])
-        return a['func'](*args)
+        try:
+            return a['func'](*args)
+        except TypeError:
+            print "Smth worng... oO"
 
     def list_of_commands(self):
         print "=" * 39
@@ -39,6 +45,7 @@ class Controller:
 
 
 class FightController(Controller):
+    name = "FIGHT"
     points = ["Head", "Body", "Legs"]
 
     def __init__(self, hero):
@@ -92,8 +99,12 @@ class FightController(Controller):
         else:
             print random.choice(self.lose_phrases).format(unit=unit.name, enemy=enemy.name, damage=damage)
 
+    def show_final_battle_result(self, unit):
+        print "{name} is dead!"
 
 class RestController(Controller):
+    name = "REST"
+
     def __init__(self, hero):
         Controller.__init__(self)
         self.hero = hero
@@ -158,8 +169,13 @@ class RestController(Controller):
         print "=" * 39
         return True
 
-    def wear_to_hero(self, item_index=None, slot=None):
-        if item_index is None:
+    def wear_to_hero(self):
+
+        self.show_hero_inventory()
+        item_index = raw_input("Choose your item [id]! :")
+        self.show_hero_slots()
+        slot = raw_input("Choose slot! :")
+        if slot is None:
             return True
 
         items = self.hero.bag.get_items()
