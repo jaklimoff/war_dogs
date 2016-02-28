@@ -53,6 +53,8 @@ head.tough = 1000000000000000000
 class BodyArmor(Armor):
     pass
 
+
+
 naked_body = BodyArmor
 naked_body.name = "Naked"
 naked_body.attack = 1
