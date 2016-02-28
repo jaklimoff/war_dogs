@@ -18,7 +18,11 @@ class Bag:
             for it in self.items:
                 if it.name == item.name:
                     created_item = it
+<<<<<<< HEAD
                     created_item.amount += 1
+=======
+                    created_item.count += 1
+>>>>>>> 3666266e2a79691d50939cc244312e8e6cdb25bb
             if not created_item:
                 self.items.append(item)
         else:
@@ -44,6 +48,9 @@ class Unit:
     hp = 100
     strength = 1
     agility = 1
+    exp = 0
+    exp_map=[100,200,400,500]
+
 
     def __str__(self):
         return self.name
@@ -134,8 +141,24 @@ class Unit:
     def block(self, point):
         self.block_point = point
 
+    _lastlevel=1
+    @property
+    def level(self):
+      for l in self.exp_map:
+        if self.exp<self.exp_map[l]:
+            currentlevel=l+1
+            if currentlevel>self._lastlevel:
+                self._lastlevel=currentlevel
+                self.level_up()
+        return currentlevel
+
+    def level_up(self):
+        self.agility += 1*self.level
+        self.strength += 1*self.level
+
 
 class Knight(Unit):
+    map = None
     pass
 
 

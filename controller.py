@@ -2,8 +2,19 @@ import random
 
 __author__ = 'jaklimoff'
 
+class VisualEffects:
+    @staticmethod
+    def hello(knight):
+        print "+" * 39
+        print " Hello %s! Its a tough time." % knight.name
+        print " Be aware of monsters and step_mother! "
+        print " May the Force be with you! "
+        print "+" * 39
+
 
 class Controller:
+    name = "DEFAULT"
+
     def __init__(self):
         self.commands = {
             "list": {
@@ -12,7 +23,8 @@ class Controller:
             },
         }
 
-    def command(self, command):
+    def command(self):
+        command = raw_input("[%s] Command: " % self.name)
         arguments = command.split(" ")
         cmd = arguments[0]
         args = arguments[1:]
@@ -23,16 +35,17 @@ class Controller:
             print "Smth worng... oO"
 
     def list_of_commands(self):
-        print "=" * 15
+        print "=" * 39
         print "List of available commands"
         for key in self.commands:
             desc = self.commands[key]['description']
             print "[%s] : %s" % (key, desc)
-        print "=" * 15
+        print "=" * 39
         return True
 
 
 class FightController(Controller):
+    name = "FIGHT"
     points = ["Head", "Body", "Legs"]
 
     def __init__(self, hero):
@@ -90,6 +103,8 @@ class FightController(Controller):
         print "{name} is dead!"
 
 class RestController(Controller):
+    name = "REST"
+
     def __init__(self, hero):
         Controller.__init__(self)
         self.hero = hero
@@ -110,6 +125,10 @@ class RestController(Controller):
                 "description": "Get down to fight, MF!",
                 "func": self.fight
             },
+            "map": {
+                "description": "Return available places from Map",
+                "func": self.get_places
+            },
         }
         self.commands.update(cmd)
 
@@ -121,7 +140,7 @@ class RestController(Controller):
             print "        {name} ({slot}) :>> {item_name}".format(slot=slot, name=slot_name, item_name=item.name)
 
     def show_hero_stat(self):
-        print "=" * 15
+        print "=" * 39
         print """
         Hero name: {name}
         HP: {health}
@@ -136,14 +155,14 @@ class RestController(Controller):
             strength=self.hero.strength,
         )
         self.show_hero_slots()
-        print "=" * 15
+        print "=" * 39
 
         return True
 
     def show_hero_inventory(self):
-        print "=" * 15
+        print "=" * 39
         print """
-        === Inventory ===
+        *** Inventory ***
         """
         items = self.hero.bag.get_items()
         index = 0
@@ -151,7 +170,7 @@ class RestController(Controller):
             if item.visible_in_bag:
                 print "     [%s] %s (%s)" % (index, item.name, item.amount)
             index += 1
-        print "=" * 15
+        print "=" * 39
         return True
 
     def wear_to_hero(self):
@@ -167,9 +186,9 @@ class RestController(Controller):
         item = items[int(item_index)]
 
         if self.hero.wear(item, slot):
-            print "=" * 15
+            print "=" * 39
             self.show_hero_slots()
-            print "=" * 15
+            print "=" * 39
         else:
             print "Error, while wearing!"
         return True
@@ -177,3 +196,10 @@ class RestController(Controller):
     def fight(self):
         print "Lets the battle begin!"
         return False
+
+    def get_places(self):
+        return self.hero.map
+
+    def go_to(self, place):
+        print self.hero.name+" went to the "+place.name
+
