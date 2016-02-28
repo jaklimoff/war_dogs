@@ -1,9 +1,8 @@
 import random
 
+from controller import VisualEffects
 from items import Item
 from settings import Settings
-from units import Knight, Unit, Enemy
-from controller import VisualEffects
 from units import Knight, Enemy
 
 
@@ -17,10 +16,6 @@ class World:
 
     def __init__(self, knight):
 
-
-#        print "=" * 10
-#        print "Hello %s! Its a tough time. Be aware of monsters and step_mother!" % knight.name
-#        print "=" * 10
 # added it
         VisualEffects.hello(knight)
 
@@ -40,7 +35,9 @@ class World:
             self.fight()
 
     def rest(self):
+        rest_controller = controller.RestController(self.knight)
         while True:
+            rest_controller.list_of_commands()
             rest_controller = controller.RestController(knight)
             if not self.knight.is_alive:
                 self.knight.hit_point = 100

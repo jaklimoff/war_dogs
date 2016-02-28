@@ -1,4 +1,4 @@
-import random
+import random, time
 
 __author__ = 'jaklimoff'
 
@@ -10,6 +10,7 @@ class VisualEffects:
         print " Be aware of monsters and step_mother! "
         print " May the Force be with you! "
         print "+" * 39
+        time.sleep(1)
 
 
 class Controller:
@@ -32,7 +33,7 @@ class Controller:
         try:
             return a['func'](*args)
         except TypeError:
-            print "Smth worng... oO"
+            print "Smth wrong... oO"
 
     def list_of_commands(self):
         print "=" * 39
@@ -110,7 +111,7 @@ class RestController(Controller):
         self.hero = hero
         cmd = {
             "ch": {
-                "description": "Show hero stat",
+                "description": "Show hero stat ",
                 "func": self.show_hero_stat
             },
             "inv": {
@@ -190,5 +191,9 @@ class RestController(Controller):
         return True
 
     def fight(self):
-        print "Lets the battle begin!"
+        print "+" * 39
+        print "+ You entered in a fight mode.        +"
+        print "+ Let's kill some monsters!           +"
+        print "+ You can start the battle now.       +"
+        print "+" * 39
         return False
