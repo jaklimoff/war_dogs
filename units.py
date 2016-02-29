@@ -17,19 +17,40 @@ class Bag:
             created_item = None
             for it in self.items:
                 if it.name == item.name:
-                    created_item.amount += 1
+                    it.amount += 1
+                    created_item = 1
+                    break
             if not created_item:
-                self.items.append(item)
+                    self.items.append(item)
         else:
             self.items.append(item)
-        return self
+        return True
 
     def remove_item(self, item, count=1):
-      #  if item.multiple:
-      #  if count == 1:
-      #      self.items.remove(item)
-      #  else:
-        self.items.remove(item)
+        if item.multiple:
+            removed_item = None
+            for i in self.items:
+                if i.name == item.name:
+                    if i.amount > count:
+                        i.amount -= count
+                        item.amount += count
+                        removed_item = True
+                        break
+                    elif i.amount == count:
+                        item.amount = count
+                        self.items.remove(item)
+                        removed_item = True
+                        break
+                    else:
+                        print"You don't have so much %s" % item.name
+                        return False
+            if not removed_item:
+                    print"You don't have such item: %s" % item.name
+                    return False
+            return item
+        else:
+            self.items.remove(item)
+            return item
 
 
 
@@ -44,7 +65,7 @@ class Unit:
     strength = 1
     agility = 1
     exp = 0
-    exp_map=[100,200,400,500]
+    exp_map = [100, 200, 400, 500]
 
 
     def use(self, potion):
@@ -96,12 +117,12 @@ class Unit:
                 "allow": HeadArmor,
             },
             "bd": {
-                "item": BodyArmor("Head", visible_in_bag=False),
+                "item": BodyArmor("Body", visible_in_bag=False),
                 "name": "Body",
                 "allow": BodyArmor,
             },
             "bt": {
-                "item": BootsArmor("Head", visible_in_bag=False),
+                "item": BootsArmor("Boots", visible_in_bag=False),
                 "name": "Left Hand",
                 "allow": BootsArmor,
             },
