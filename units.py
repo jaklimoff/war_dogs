@@ -53,10 +53,6 @@ class Bag:
             return item
 
 
-
-        return item
-
-
 class Unit:
     name = "anon"
     enemies = None
