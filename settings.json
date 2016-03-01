@@ -43,5 +43,29 @@
                 "price":100
             }
         }
+    },
+
+    "enemy": {
+        "orc":{
+            "name": "Orc",
+            "hp": 160,
+            "strength": 2,
+            "agility": 1,
+            "type": "Enemy"
+        },
+        "ogre":{
+            "name": "Ogre",
+            "hp": 210,
+            "strength": 3,
+            "agility": 1,
+            "type": "Enemy"
+        },
+        "goblin":{
+            "name": "Goblin",
+            "hp": 80,
+            "strength": 1,
+            "agility": 2,
+            "type": "Enemy"
+        }
     }
 }
