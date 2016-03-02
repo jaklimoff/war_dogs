@@ -8,6 +8,7 @@ import importlib
 class Settings():
     settings = None
     items = None
+    enemies = None
 
     def __init__(self, settings_name):
         settings_file = open(settings_name, "r")

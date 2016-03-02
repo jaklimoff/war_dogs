@@ -74,9 +74,12 @@ class World:
 
 
     def fight(self):
-        enemy = Enemy("Orc")
-        item = Item("Brick")
-        item.attack = 6
+        key_enemy = random.choice(settings.enemies.keys())
+        list_enemies = settings.enemies
+        enemy = list_enemies[key_enemy]
+        key_item = random.choice(settings.items.keys())
+        list_items = settings.items
+        item = list_items[key_item]
         enemy.wear(item, "lh")
         enemy.battle_begin(self.knight)
         knight.battle_begin(enemy)
