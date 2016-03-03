@@ -126,15 +126,13 @@ class RestController(Controller):
                 "description": "Get down to fight, MF!",
                 "func": self.fight
             },
-<<<<<<< HEAD
             "use": {
                 "description": "Wanna drink some potions? [use {item_index}]",
                 "func": self.use_a_potion
-=======
+            },
             "map": {
                 "description": "Return available places from Map",
                 "func": self.get_places
->>>>>>> 62169dc7fdc9b899bc9fe46f0e404784364424bb
             },
         }
         self.commands.update(cmd)

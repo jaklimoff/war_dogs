@@ -30,10 +30,7 @@ class Bag:
       #      self.items.remove(item)
       #  else:
             self.items.remove(item)
-
-
-
-        return item
+            return item
 
 
 class Unit:
