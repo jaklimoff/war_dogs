@@ -3,7 +3,7 @@ from items import Item
 
 from controller import VisualEffects
 from items import Item
-from items import Item, Coins
+from items import Item, Coins, HealingPotion
 
 from settings import Settings
 
@@ -40,14 +40,16 @@ class World:
         self.knight.bag.add_item(sword)
         self.knight.wear(sword, 'rh')
         self.knight.bag.add_item(Item("shield"))
-        self.knight.bag.add_item(Item("shield"))
         coin = Coins()
         coin.amount = 21
         tax = Coins()
         self.knight.bag.add_item(coin)
         self.knight.bag.add_item(Item("tourch"))
         self.knight.bag.add_item(Item("fri potato"))
-        self.knight.bag.add_item(Item("big healing potion"))
+        big_healing_potion = HealingPotion("big healing potion")
+        big_healing_potion.uses = 3
+        big_healing_potion.restored_hp = 10
+        self.knight.bag.add_item(big_healing_potion)
         self.knight.bag.remove_item(tax, 9)
 
 
@@ -96,7 +98,7 @@ class World:
             enemy.next_turn()
 
             def process(unit):
-                enemy = unit.choosen_enemy
+                enemy = unit.chosen_enemy
                 damage = 0
                 if unit.hit_point != enemy.block_point:
                     damage = unit.attack

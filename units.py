@@ -56,20 +56,19 @@ class Bag:
 class Unit:
     name = "anon"
     enemies = None
-    choosen_enemy = None
+    chosen_enemy = None
     hp = 100
     strength = 1
     agility = 1
     exp = 0
     exp_map = [100, 200, 400, 500]
 
-
     def use(self, potion):
         potion.uses -= 1
         self.hp += potion.restored_hp
         if potion.uses <= 0:
             self.bag.remove_item(potion)
-
+            return True
 
     def __str__(self):
         return self.name
@@ -119,7 +118,7 @@ class Unit:
             },
             "bt": {
                 "item": BootsArmor("Boots", visible_in_bag=False),
-                "name": "Left Hand",
+                "name": "Feet",
                 "allow": BootsArmor,
             },
             "rh": {
@@ -154,7 +153,7 @@ class Unit:
         return False
 
     def hit(self, unit, point):
-        self.choosen_enemy = unit
+        self.chosen_enemy = unit
         self.hit_point = point
 
     def block(self, point):

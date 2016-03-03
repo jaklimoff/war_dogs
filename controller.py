@@ -34,6 +34,7 @@ class Controller:
             return a['func'](*args)
         except TypeError:
             print "Smth wrong... oO"
+            return True
 
     def list_of_commands(self):
         print "=" * 39
@@ -58,6 +59,10 @@ class FightController(Controller):
                 "description": "Hit, MF, HIT!",
                 "func": self.hit_the_enemy
             },
+            "use":{
+                "description": "Wanna drink some potions?",
+                "func": self.use_a_potion
+            }
         }
         self.commands.update(cmd)
 
@@ -82,6 +87,17 @@ class FightController(Controller):
 
         # print "HIT! %s to %s and blocked %s" % (enemy, hit_point, block_point)
 
+        return True
+
+    def use_a_potion(self):
+        self.show_hero_inventory()
+        potion_index = raw_input("Choose your potion [id]! :")
+        items = self.hero.bag.get_items()
+        potion = items[int(potion_index)]
+        self.hero.use(potion)
+        print "=" * 39
+        self.show_hero_stat()
+        print "=" * 39
         return True
 
     # TODO: Add multiple phrazes for attack
@@ -206,6 +222,14 @@ class RestController(Controller):
         items = self.hero.bag.get_items()
         potion = items[int(potion_index)]
         self.hero.use(potion)
+        print "=" * 39
+        self.show_hero_stat()
+        print "=" * 39
+        return True
+        #else:
+         #   print "Error, while drinking!"
+        #return True
+
 
     def fight(self):
 
