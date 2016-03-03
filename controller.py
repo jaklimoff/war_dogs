@@ -7,7 +7,7 @@ class VisualEffects:
     def hello(knight):
         print "+" * 39
         print " Hello %s! Its a tough time." % knight.name
-        print " Be aware of monsters and step_mother! "
+        print " Be aware of monsters and mother_in_law! "
         print " May the Force be with you! "
         print "+" * 39
         time.sleep(1)
@@ -128,13 +128,15 @@ class RestController(Controller):
             },
             "use": {
                 "description": "Wanna drink some potions? [use {item_index}]",
+
                 "func": self.use_a_potion
             },
             "map": {
                 "description": "Return available places from Map",
                 "func": self.get_places
+
             },
-        }
+            }
         self.commands.update(cmd)
 
     def show_hero_slots(self):
