@@ -55,8 +55,8 @@ class Bag:
 
 class Unit:
     name = "anon"
-    enemies = None
-    chosen_enemy = None
+    enemies = []
+    choosen_enemy = None
     hp = 100
     strength = 1
     agility = 1
@@ -133,10 +133,9 @@ class Unit:
             }
         }
 
-    def battle_begin(self, enemies):
+    def battle_begin(self, *enemies):
         if not isinstance(enemies, list):
             enemies = [enemies]
-
         self.enemies = enemies
 
     def wear(self, item, slot):
@@ -181,6 +180,6 @@ class Knight(Unit):
 
 
 class Enemy(Unit):
-    def next_turn(self):
-        self.hit(self.enemies[0], random.randint(0, 2))
+    def next_turn(self, hero):
+        self.hit(hero, random.randint(0, 2))
         self.block(random.randint(0, 2))

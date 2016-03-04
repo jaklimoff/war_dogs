@@ -1,4 +1,4 @@
-import random
+import random, copy
 from items import Item
 
 from controller import VisualEffects
@@ -76,18 +76,35 @@ class World:
 
 
     def fight(self):
-        key_enemy = random.choice(settings.enemies.keys())
-        list_enemies = settings.enemies
-        enemy = list_enemies[key_enemy]
-        key_item = random.choice(settings.items.keys())
-        list_items = settings.items
-        item = list_items[key_item]
-        enemy.wear(item, "lh")
-        enemy.battle_begin(self.knight)
-        knight.battle_begin(enemy)
+        #lvl = self.knight.level
+        number_of_enemies = random.randint(1, 3)
+        min_number_enemies = 1
+        enemies = self.knight.enemies
+        i = 1
+        while min_number_enemies <= number_of_enemies:
+            key_enemy = random.choice(settings.enemies.keys())
+            list_enemies = settings.enemies
+            enemy = copy.copy(list_enemies[key_enemy])
+            key_item = random.choice(settings.items.keys())
+            list_items = settings.items
+            item = list_items[key_item]
+            enemy.wear(item, "lh")
+            for i_enemy in enemies:
+                if enemy.name == i_enemy.name:
+                    enemy.name = "{name} {i}".format(name=enemy.name, i=str(i))
+                    i += 1
+            enemies.append(enemy)
+            min_number_enemies += 1
 
-        print "Health of enemy" # added it
-        print "Enemy: %s" % enemy.hp
+        #for every in enemies:
+        #    every.battle_begin(self.knight)
+        #knight.battle_begin(enemies)
+
+        print "Health of enemy"
+        print "-" * 14
+        for i in enemies:
+            print "{:<7}{:>7}".format(i.name, i.hp)
+        print "-" * 14
         print "Health of hero" # added it
         print "Knight: %s" % self.knight.hp
 
@@ -95,7 +112,8 @@ class World:
         while True:
             fight_controller.list_of_commands()
             result = fight_controller.command()
-            enemy.next_turn()
+            for enemy in enemies:
+                enemy.next_turn(self.knight)
 
             def process(unit):
                 enemy = unit.chosen_enemy
@@ -105,19 +123,29 @@ class World:
                     enemy.hp -= damage
                 fight_controller.show_battle_result(unit, damage, enemy)
 
-            units = [self.knight, enemy]
-            random.shuffle(units)
+            units = [self.knight]
+         #   random.shuffle(units)
+            for enemy in enemies:
+                units.append(enemy)
             for u in units:
                 process(u)
 
-            print "Enemy: %s" % enemy.hp
+            for i in enemies:
+                print "{:<7}{:>7}".format(i.name, i.hp)
             print "Knight: %s" % self.knight.hp
 
             end = False
-            for u in units:
-                if not u.is_alive:
-                    fight_controller.show_final_battle_result(u)
-                    end = True
+
+            if not self.knight.is_alive:
+                fight_controller.show_final_battle_result(self.knight)
+                end = True
+
+            for i, e in enumerate(enemies):
+                if not e.is_alive:
+                    fight_controller.show_final_battle_result(e)
+                    enemies.remove(e)
+                    if len(enemies) == 0:
+                        end = True
 
             if end:
                 break

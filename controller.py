@@ -76,11 +76,9 @@ class FightController(Controller):
         self._show_list(self.hero.enemies)
         enemy_id = raw_input("Enter enemy ID: ")
         enemy = self.hero.enemies[int(enemy_id)]
-
         self._show_list(self.points)
         hit_point = raw_input("What point to hit? ")
         self.hero.hit(enemy, int(hit_point))
-
         self._show_list(self.points)
         block_point = raw_input("What point to block? ")
         self.hero.block(int(block_point))
@@ -117,7 +115,7 @@ class FightController(Controller):
             print random.choice(self.lose_phrases).format(unit=unit.name, enemy=enemy.name, damage=damage)
 
     def show_final_battle_result(self, unit):
-        print "{name} is dead!"
+        print "{name} is dead!".format(name=unit.name)
 
 class RestController(Controller):
     name = "REST"
