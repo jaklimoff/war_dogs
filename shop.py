@@ -4,7 +4,7 @@ __author__ = 'skypro1111'
 
 # from items import Item, Weapon, Armor, BootsArmor, HeadArmor, BodyArmor
 
-class Map():
+class Map:
     def __init__(self):
         self.places = []
 
@@ -18,10 +18,19 @@ class Map():
     def get_all_places(self):
         return self.places
 
-
-class Shop():
-    def __init__(self, name="NOWHERE"):
+class Place:
+    def __init__(self, name="[BBH] Biggest Black Hole"):
         self.name = name
+        if self.name == "[BBH] Biggest Black Hole":
+            i = 0
+            while i <= 20:
+                print("*" * i+"HEY! YOU ARE DIE!"+"*" * (20-i))
+                i += 1
+                if i >= 20:
+                    i = 0
+
+class Shop(Place):
+    def __init__(self):
         self.store_items = []
 
     def __str__(self):

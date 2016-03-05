@@ -74,6 +74,7 @@ class World:
             if not result:
                 break
 
+<<<<<<< HEAD
     def show_enemy_slots(self, *enemies):
         for i in enemies:
             for enemy in i:
@@ -83,6 +84,17 @@ class World:
                     slot_name = item_slot['name']
                     item = item_slot['item']
                     print "{enemy:<7}   {name} :>> {item_name}".format(enemy=enemy.name, name=slot_name, item_name=item.name)
+=======
+            if self.levelup:
+                print "Knight is leveled up!"
+                print "Type what you want to increase: agility or strength?"
+                result = raw_input("Type what you want to increase: agility or strength?")
+                if result =="agility":
+                  self.agility += 1*self.level
+                if result =="strength":
+                  self.strength += 1*self.level
+
+>>>>>>> 63a04bb17466da6ad974a2c3cbe8593dacb33997
 
     def fight(self):
         #lvl = self.knight.level
@@ -120,7 +132,7 @@ class World:
                 enemy.next_turn(self.knight)
 
             def process(unit):
-                enemy = unit.chosen_enemy
+                enemy = unit.choosen_enemy
                 damage = 0
                 if unit.hit_point != enemy.block_point:
                     damage = unit.attack
@@ -143,6 +155,10 @@ class World:
             if not self.knight.is_alive:
                 fight_controller.show_final_battle_result(self.knight)
                 end = True
+            else:
+                self.knight.exp +=15
+
+
 
             for i, e in enumerate(enemies):
                 if not e.is_alive:
