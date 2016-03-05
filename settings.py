@@ -2,6 +2,9 @@ __author__ = 'jaklimoff'
 
 import json
 import importlib
+import random
+
+import units
 
 
 
@@ -43,6 +46,12 @@ class Settings():
             new_enemy = EnemyClass(enemy_name)
             new_enemy.strength = enemy.get("strength", 0)
             new_enemy.agility = enemy.get("agility", 0)
+            new_enemy.hp = enemy.get("hp", 0)
+            slots = enemy["items"]
+            for s in slots:
+                item_rand = random.choice(slots[s])
+                item = self.items[item_rand]
+                new_enemy.wear(item, s)
             self.enemies[en] = new_enemy
 
     def get_item(self, slug_name):
