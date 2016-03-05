@@ -60,6 +60,7 @@ class Unit:
     hp = 100
     strength = 1
     agility = 1
+    levelup=False
     exp = 0
     exp_map = [100, 200, 400, 500]
 
@@ -166,13 +167,8 @@ class Unit:
             currentlevel=l+1
             if currentlevel>self._lastlevel:
                 self._lastlevel=currentlevel
-                self.level_up()
+                self.levelup=True
         return currentlevel
-
-    def level_up(self):
-        self.agility += 1*self.level
-        self.strength += 1*self.level
-
 
 class Knight(Unit):
     map = None

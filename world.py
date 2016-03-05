@@ -74,6 +74,15 @@ class World:
             if not result:
                 break
 
+            if self.levelup:
+                print "Knight is leveled up!"
+                print "Type what you want to increase: agility or strength?"
+                result = raw_input("Type what you want to increase: agility or strength?")
+                if result =="agility":
+                  self.agility += 1*self.level
+                if result =="strength":
+                  self.strength += 1*self.level
+
 
     def fight(self):
         #lvl = self.knight.level
@@ -139,6 +148,10 @@ class World:
             if not self.knight.is_alive:
                 fight_controller.show_final_battle_result(self.knight)
                 end = True
+            else:
+                self.knight.exp +=15
+
+
 
             for i, e in enumerate(enemies):
                 if not e.is_alive:
