@@ -1,12 +1,14 @@
 import random
 import time
 
+
+
 class Unit():
     _hp = 100
     mp = 100
     st = 100
 
-    attack = 10
+    attack = 30
     decision = ""
     enemies = None
     choosen_unit = None
@@ -29,7 +31,7 @@ class Unit():
         return self._hp
 
     def set_hp(self, value):
-        self._hp = min(value, 100)
+        self._hp = max(min(value, 100), 0)
 
     def _hit(self, unit):
         self.choosen_unit = unit
@@ -71,13 +73,20 @@ class Environment:
             for unit in self.units:
                 unit.mp += random.randint(0,2)
                 unit.st += random.randint(0,2)
-                print "-- %s: HP:%s MP:%s ST:%s" % (unit.name, unit.hp, unit.mp, unit.st)
+
+            prnt = {unit.name:{'hp':unit.hp, 'mp':unit.mp, 'st':unit.st} for unit in self.units}
+            for key in sorted(prnt):
+                print(key +' '*(6-len(key))+ str(prnt[key]));
+
 
             self.units = filter(lambda unit: unit.is_alive, self.units)
-            print "-" * 20
+            print "-" * 35
 
             if len(self.units) <= 1:
                 break
 
-units = [Unit("Coca-Cola"), Unit("Pepsi"), Unit("Buratino")]
-Environment(units)
+if __name__ == "__main__":
+    from fighters.skypro1111 import Skypro
+
+    units = [Skypro('sky'), Unit("Pepsi"), Unit("TSOI")]
+    Environment(units)
