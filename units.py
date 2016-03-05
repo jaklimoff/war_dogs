@@ -172,7 +172,7 @@ class Unit:
 
 class Knight(Unit):
     map = None
-    pass
+
 
 
 class Enemy(Unit):
