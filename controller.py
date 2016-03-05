@@ -1,4 +1,4 @@
-import random, time
+import random, time, sys
 
 __author__ = 'jaklimoff'
 
@@ -46,112 +46,10 @@ class Controller:
         return True
 
 
-class FightController(Controller):
-    name = "FIGHT"
-    points = ["Head", "Body", "Legs"]
-
+class HeroController(Controller):
     def __init__(self, hero):
         Controller.__init__(self)
         self.hero = hero
-
-        cmd = {
-            "hit": {
-                "description": "Hit, MF, HIT!",
-                "func": self.hit_the_enemy
-            },
-            "use":{
-                "description": "Wanna drink some potions?",
-                "func": self.use_a_potion
-            }
-        }
-        self.commands.update(cmd)
-
-    def _show_list(self, iter):
-        count = 0
-        for value in iter:
-            print "[%s] %s" % (count, value)
-            count += 1
-
-    def hit_the_enemy(self):
-        self._show_list(self.hero.enemies)
-        enemy_id = raw_input("Enter enemy ID: ")
-        enemy = self.hero.enemies[int(enemy_id)]
-        self._show_list(self.points)
-        hit_point = raw_input("What point to hit? ")
-        self.hero.hit(enemy, int(hit_point))
-        self._show_list(self.points)
-        block_point = raw_input("What point to block? ")
-        self.hero.block(int(block_point))
-
-        # print "HIT! %s to %s and blocked %s" % (enemy, hit_point, block_point)
-
-        return True
-
-    def use_a_potion(self):
-        self.show_hero_inventory()
-        potion_index = raw_input("Choose your potion [id]! :")
-        items = self.hero.bag.get_items()
-        potion = items[int(potion_index)]
-        self.hero.use(potion)
-        print "=" * 39
-        self.show_hero_stat()
-        print "=" * 39
-        return True
-
-    # TODO: Add multiple phrazes for attack
-
-    win_phrases = [
-        "{unit} hit {enemy} to {point} with {damage} damage!"
-    ]
-    lose_phrases = [
-        "{enemy} blocked the {unit} attack!"
-    ]
-
-    def show_battle_result(self, unit, damage, enemy):
-        if damage > 0:
-            print random.choice(self.win_phrases).format(unit=unit.name, enemy=enemy.name, damage=damage,
-                                                         point=unit.hit_point)
-        else:
-            print random.choice(self.lose_phrases).format(unit=unit.name, enemy=enemy.name, damage=damage)
-
-    def show_final_battle_result(self, unit):
-        print "{name} is dead!".format(name=unit.name)
-
-class RestController(Controller):
-    name = "REST"
-
-    def __init__(self, hero):
-        Controller.__init__(self)
-        self.hero = hero
-        cmd = {
-            "ch": {
-                "description": "Show hero stat ",
-                "func": self.show_hero_stat
-            },
-            "inv": {
-                "description": "Show hero inventory",
-                "func": self.show_hero_inventory
-            },
-            "wear": {
-                "description": "Wear to hero [wear {item_index} {hero_slot}]",
-                "func": self.wear_to_hero
-            },
-            "fight": {
-                "description": "Get down to fight, MF!",
-                "func": self.fight
-            },
-            "use": {
-                "description": "Wanna drink some potions? [use {item_index}]",
-
-                "func": self.use_a_potion
-            },
-            "map": {
-                "description": "Return available places from Map",
-                "func": self.get_places
-
-            },
-            }
-        self.commands.update(cmd)
 
     def show_hero_slots(self):
         for slot in self.hero.slots:
@@ -224,9 +122,108 @@ class RestController(Controller):
         self.show_hero_stat()
         print "=" * 39
         return True
-        #else:
-         #   print "Error, while drinking!"
-        #return True
+
+
+# noinspection PyArgumentList
+class FightController(HeroController):
+    name = "FIGHT"
+    points = ["Head", "Body", "Legs"]
+
+    def __init__(self, hero):
+        Controller.__init__(self)
+        self.hero = hero
+
+        cmd = {
+            "hit": {
+                "description": "Hit, MF, HIT!",
+                "func": self.hit_the_enemy
+            },
+            "use":{
+                "description": "Wanna drink some potions?",
+                "func": self.use_a_potion
+            },
+            "weapon": {
+                "description": "Wanna choose another weapon?",
+                "func": self.wear_to_hero
+            }
+        }
+        self.commands.update(cmd)
+
+    def _show_list(self, iter):
+        count = 0
+        for value in iter:
+            print "[%s] %s" % (count, value)
+            count += 1
+
+    def hit_the_enemy(self):
+        self._show_list(self.hero.enemies)
+        enemy_id = raw_input("Enter enemy ID: ")
+        enemy = self.hero.enemies[int(enemy_id)]
+        self._show_list(self.points)
+        hit_point = raw_input("What point to hit? ")
+        self.hero.hit(enemy, int(hit_point))
+        self._show_list(self.points)
+        block_point = raw_input("What point to block? ")
+        self.hero.block(int(block_point))
+
+        # print "HIT! %s to %s and blocked %s" % (enemy, hit_point, block_point)
+
+        return True
+
+    # TODO: Add multiple phrazes for attack
+
+    win_phrases = [
+        "{unit} hit {enemy} to {point} with {damage} damage!"
+    ]
+    lose_phrases = [
+        "{enemy} blocked the {unit} attack!"
+    ]
+
+    def show_battle_result(self, unit, damage, enemy):
+        if damage > 0:
+            print random.choice(self.win_phrases).format(unit=unit.name, enemy=enemy.name, damage=damage,
+                                                         point=unit.hit_point)
+        else:
+            print random.choice(self.lose_phrases).format(unit=unit.name, enemy=enemy.name, damage=damage)
+
+    def show_final_battle_result(self, unit):
+        print "{name} is dead!".format(name=unit.name)
+
+class RestController(HeroController):
+    name = "REST"
+
+    def __init__(self, hero):
+        Controller.__init__(self)
+        self.hero = hero
+        cmd = {
+            "ch": {
+                "description": "Show hero stat ",
+                "func": self.show_hero_stat
+            },
+            "inv": {
+                "description": "Show hero inventory",
+                "func": self.show_hero_inventory
+            },
+            "wear": {
+                "description": "Wear to hero [wear {item_index} {hero_slot}]",
+                "func": self.wear_to_hero
+            },
+            "fight": {
+                "description": "Get down to fight, MF!",
+                "func": self.fight
+            },
+            "use": {
+                "description": "Wanna drink some potions? [use {item_index}]",
+
+                "func": self.use_a_potion
+            },
+            "map": {
+                "description": "Return available places from Map",
+                "func": self.get_places
+
+            },
+            }
+        self.commands.update(cmd)
 
 
     def fight(self):

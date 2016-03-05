@@ -116,7 +116,7 @@ class World:
                 enemy.next_turn(self.knight)
 
             def process(unit):
-                enemy = unit.chosen_enemy
+                enemy = unit.choosen_enemy
                 damage = 0
                 if unit.hit_point != enemy.block_point:
                     damage = unit.attack
