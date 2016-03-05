@@ -160,6 +160,8 @@ class RestController(Controller):
             item = item_slot['item']
             print "        {name} ({slot}) :>> {item_name}".format(slot=slot, name=slot_name, item_name=item.name)
 
+
+
     def show_hero_stat(self):
         print "=" * 39
         print """
