@@ -1,6 +1,9 @@
 import random
 import time
 
+
+
+
 class Unit():
     _hp = 100
     mp = 100
@@ -79,5 +82,7 @@ class Environment:
             if len(self.units) <= 1:
                 break
 
-units = [Unit("Coca-Cola"), Unit("Pepsi"), Unit("Buratino")]
-Environment(units)
+if __name__ == "__main__":
+    from fighters.itymoshenko import ITymoshenko
+    units = [ITymoshenko(), Unit("Pepsi"), Unit("Buratino")]
+    Environment(units)
