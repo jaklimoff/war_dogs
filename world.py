@@ -1,20 +1,11 @@
-import random, copy
-from items import Item
+import copy
+import random
 
 from controller import VisualEffects
-from items import Item
 from items import Item, Coins, HealingPotion
-
 from settings import Settings
-
-from units import Knight, Unit, Enemy
-
 from shop import Map
-
-from controller import VisualEffects
-
-from units import Knight, Enemy
-
+from units import Knight
 
 __author__ = 'jaklimoff'
 
@@ -74,7 +65,6 @@ class World:
             if not result:
                 break
 
-<<<<<<< HEAD
     def show_enemy_slots(self, *enemies):
         for i in enemies:
             for enemy in i:
@@ -84,7 +74,6 @@ class World:
                     slot_name = item_slot['name']
                     item = item_slot['item']
                     print "{enemy:<7}   {name} :>> {item_name}".format(enemy=enemy.name, name=slot_name, item_name=item.name)
-=======
             if self.levelup:
                 print "Knight is leveled up!"
                 print "Type what you want to increase: agility or strength?"
@@ -93,8 +82,6 @@ class World:
                   self.agility += 1*self.level
                 if result =="strength":
                   self.strength += 1*self.level
-
->>>>>>> 63a04bb17466da6ad974a2c3cbe8593dacb33997
 
     def fight(self):
         #lvl = self.knight.level
@@ -172,6 +159,9 @@ class World:
 
 if __name__ == "__main__":
     settings = Settings("settings.json")
+    VisualEffects.invitation()
+    VisualEffects.logo()
+    VisualEffects.bar()
     name = raw_input("Enter your name:")
     knight = Knight(name)
 

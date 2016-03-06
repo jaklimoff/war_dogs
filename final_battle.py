@@ -262,6 +262,7 @@ class Environment:
 
 
 if __name__ == "__main__":
+
     from fighters.skypro1111 import Skypro
 
     u1 = Skypro('sky')
@@ -274,4 +275,5 @@ if __name__ == "__main__":
     u4.position = (2, 2)
 
     units = [u1, u2, u3, u4]
+
     Environment(units)
