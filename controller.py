@@ -225,7 +225,6 @@ class RestController(HeroController):
             }
         self.commands.update(cmd)
 
-<<<<<<< HEAD
     def show_hero_slots(self):
         for slot in self.hero.slots:
             item_slot = self.hero.slots[slot]
@@ -303,8 +302,6 @@ class RestController(HeroController):
          #   print "Error, while drinking!"
         #return True
 
-=======
->>>>>>> 63a04bb17466da6ad974a2c3cbe8593dacb33997
 
     def fight(self):
 
