@@ -74,6 +74,17 @@ class World:
             if not result:
                 break
 
+<<<<<<< HEAD
+    def show_enemy_slots(self, *enemies):
+        for i in enemies:
+            for enemy in i:
+                print "{:<7}   HP: {:>7}".format(enemy.name, enemy.hp)
+                for slot in enemy.slots:
+                    item_slot = enemy.slots[slot]
+                    slot_name = item_slot['name']
+                    item = item_slot['item']
+                    print "{enemy:<7}   {name} :>> {item_name}".format(enemy=enemy.name, name=slot_name, item_name=item.name)
+=======
             if self.levelup:
                 print "Knight is leveled up!"
                 print "Type what you want to increase: agility or strength?"
@@ -83,6 +94,7 @@ class World:
                 if result =="strength":
                   self.strength += 1*self.level
 
+>>>>>>> 63a04bb17466da6ad974a2c3cbe8593dacb33997
 
     def fight(self):
         #lvl = self.knight.level
@@ -94,10 +106,6 @@ class World:
             key_enemy = random.choice(settings.enemies.keys())
             list_enemies = settings.enemies
             enemy = copy.copy(list_enemies[key_enemy])
-            key_item = random.choice(settings.items.keys())
-            list_items = settings.items
-            item = list_items[key_item]
-            enemy.wear(item, "lh")
             for i_enemy in enemies:
                 if enemy.name == i_enemy.name:
                     enemy.name = "{name} {i}".format(name=enemy.name, i=str(i))
@@ -111,8 +119,7 @@ class World:
 
         print "Health of enemy"
         print "-" * 14
-        for i in enemies:
-            print "{:<7}{:>7}".format(i.name, i.hp)
+        self.show_enemy_slots(enemies)
         print "-" * 14
         print "Health of hero" # added it
         print "Knight: %s" % self.knight.hp

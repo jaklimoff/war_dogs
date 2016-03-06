@@ -51,21 +51,25 @@
             "hp": 160,
             "strength": 2,
             "agility": 1,
-            "type": "Enemy"
+            "type": "Enemy",
+            "items":{"rh":["knife1", "shield1"]}
+
         },
         "ogre":{
             "name": "Ogre",
             "hp": 210,
             "strength": 3,
             "agility": 1,
-            "type": "Enemy"
+            "type": "Enemy",
+            "items":{"rh":["axe1", "shield1"]}
         },
         "goblin":{
             "name": "Goblin",
             "hp": 80,
             "strength": 1,
             "agility": 2,
-            "type": "Enemy"
+            "type": "Enemy",
+            "items":{"rh":["sword1", "shield1"]}
         }
     }
 }
