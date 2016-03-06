@@ -1,20 +1,11 @@
-import random, copy
-from items import Item
+import copy
+import random
 
 from controller import VisualEffects
-from items import Item
 from items import Item, Coins, HealingPotion
-
 from settings import Settings
-
-from units import Knight, Unit, Enemy
-
 from shop import Map
-
-from controller import VisualEffects
-
-from units import Knight, Enemy
-
+from units import Knight
 
 __author__ = 'jaklimoff'
 
@@ -73,7 +64,6 @@ class World:
             result = rest_controller.command()
             if not result:
                 break
-
 
     def show_enemy_slots(self, *enemies):
         for i in enemies:
@@ -169,6 +159,9 @@ class World:
 
 if __name__ == "__main__":
     settings = Settings("settings.json")
+    VisualEffects.invitation()
+    VisualEffects.logo()
+    VisualEffects.bar()
     name = raw_input("Enter your name:")
     knight = Knight(name)
 

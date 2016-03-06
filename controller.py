@@ -1,3 +1,4 @@
+# coding=utf-8
 import random, time, sys
 
 __author__ = 'jaklimoff'
@@ -5,12 +6,65 @@ __author__ = 'jaklimoff'
 class VisualEffects:
     @staticmethod
     def hello(knight):
-        print "+" * 39
-        print " Hello %s! Its a tough time." % knight.name
-        print " Be aware of monsters and mother_in_law! "
-        print " May the Force be with you! "
-        print "+" * 39
+        print "+" * 71
+        print "Hello %s! Its a tough time." % knight.name
+        print "Be aware of monsters and mother_in_law! "
+        print "May the Force be with you! "
+        print "+" * 71
         time.sleep(1)
+
+    @staticmethod
+    def invitation():
+        print "                            ☢ WAR DOGS ☢                             "
+
+# simple progres bar
+    @staticmethod
+    def bar():
+        for i in range(71):
+            sys.stdout.write('\r')
+            sys.stdout.write("[%-70s] %d%%" % ('#' * i, 1.43 * i))
+            sys.stdout.flush()
+            time.sleep(0.03)
+        print # for new line
+        print"                      Game loaded! Have fun! =)                       "
+
+    @staticmethod
+    def logo():
+        print "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
+        print "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
+        print "▒▒▒▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▒▒▒▒▒"
+        print "▒▒▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒▒▒"
+        print "▒▒▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▒▒▒▒▒▒▒"
+        time.sleep(0.3)
+        print "▒▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░▄░░▒▒▒▒▒"
+        print "▒▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░██▌░░▒▒▒▒"
+        print "▒▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░▄▄███▀░░░░▒▒▒"
+        print "▒▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░░█████░▄█░░░░▒▒"
+        print "▒▒░░░░░░░░░░░░░░░░░░░░░░░░░░▄████████▀░░░░▒▒"
+        time.sleep(0.3)
+        print "▒▒░░░░░░░░░░░░░░░░░░░░░░░░▄█████████░░░░░░░▒"
+        print "▒░░░░░░░░░░░░░░░░░░░░░░░░░░▄███████▌░░░░░░░▒"
+        print "▒░░░░░░░░░░░░░░░░░░░░░░░░▄█████████░░░░░░░░▒"
+        print "▒░░░░░░░░░░░░░░░░░░░░░▄███████████▌░░░░░░░░▒"
+        print "▒░░░░░░░░░░░░░░░▄▄▄▄██████████████▌░░░░░░░░▒"
+        time.sleep(0.3)
+        print "▒░░░░░░░░░░░▄▄███████████████████▌░░░░░░░░░▒"
+        print "▒░░░░░░░░░▄██████████████████████▌░░░░░░░░░▒"
+        print "▒░░░░░░░░████████████████████████░░░░░░░░░░▒"
+        print "▒█░░░░░▐██████████▌░▀▀███████████░░░░░░░░░░▒"
+        print "▐██░░░▄██████████▌░░░░░░░░░▀██▐█▌░░░░░░░░░▒▒"
+        time.sleep(0.3)
+        print "▒██████░█████████░░░░░░░░░░░▐█▐█▌░░░░░░░░░▒▒"
+        print "▒▒▀▀▀▀░░░██████▀░░░░░░░░░░░░▐█▐█▌░░░░░░░░▒▒▒"
+        print "▒▒▒▒▒░░░░▐█████▌░░░░░░░░░░░░▐█▐█▌░░░░░░░▒▒▒▒"
+        print "▒▒▒▒▒▒░░░░███▀██░░░░░░░░░░░░░█░█▌░░░░░░▒▒▒▒▒"
+        print "▒▒▒▒▒▒▒▒░▐██░░░██░░░░░░░░▄▄████████▄▒▒▒▒▒▒▒▒"
+        time.sleep(0.3)
+        print "▒▒▒▒▒▒▒▒▒██▌░░░░█▄░░░░░░▄███████████████████"
+        print "▒▒▒▒▒▒▒▒▒▐██▒▒░░░██▄▄███████████████████████"
+        print "▒▒▒▒▒▒▒▒▒▒▐██▒▒▄████████████████████████████"
+        print "▒▒▒▒▒▒▒▒▒▒▄▄████████████████████████████████"
+        print "████████████████████████████████████████████"
 
 
 class Controller:
@@ -37,12 +91,12 @@ class Controller:
             return True
 
     def list_of_commands(self):
-        print "=" * 39
+        print "=" * 71
         print "List of available commands"
         for key in self.commands:
             desc = self.commands[key]['description']
             print "[%s] : %s" % (key, desc)
-        print "=" * 39
+        print "=" * 71
         return True
 
 
@@ -123,6 +177,26 @@ class HeroController(Controller):
         print "=" * 39
         return True
 
+    def _show_list(self, iter):
+        count = 0
+        for value in iter:
+            print "[%s] %s" % (count, value)
+            count += 1
+
+    def hit_the_enemy(self):
+        self._show_list(self.hero.enemies)
+        enemy_id = raw_input("Enter enemy ID: ")
+        enemy = self.hero.enemies[int(enemy_id)]
+        self._show_list(self.points)
+        hit_point = raw_input("What point to hit? ")
+        self.hero.hit(enemy, int(hit_point))
+        self._show_list(self.points)
+        block_point = raw_input("What point to block? ")
+        self.hero.block(int(block_point))
+
+        # print "HIT! %s to %s and blocked %s" % (enemy, hit_point, block_point)
+
+        return True
 
 # noinspection PyArgumentList
 class FightController(HeroController):
@@ -148,27 +222,6 @@ class FightController(HeroController):
             }
         }
         self.commands.update(cmd)
-
-    def _show_list(self, iter):
-        count = 0
-        for value in iter:
-            print "[%s] %s" % (count, value)
-            count += 1
-
-    def hit_the_enemy(self):
-        self._show_list(self.hero.enemies)
-        enemy_id = raw_input("Enter enemy ID: ")
-        enemy = self.hero.enemies[int(enemy_id)]
-        self._show_list(self.points)
-        hit_point = raw_input("What point to hit? ")
-        self.hero.hit(enemy, int(hit_point))
-        self._show_list(self.points)
-        block_point = raw_input("What point to block? ")
-        self.hero.block(int(block_point))
-
-        # print "HIT! %s to %s and blocked %s" % (enemy, hit_point, block_point)
-
-        return True
 
     # TODO: Add multiple phrazes for attack
 
@@ -305,11 +358,11 @@ class RestController(HeroController):
 
     def fight(self):
 
-        print "+" * 39
-        print "+ You entered in a fight mode.        +"
-        print "+ Let's kill some monsters!           +"
-        print "+ You can start the battle now.       +"
-        print "+" * 39
+        print "+" * 71
+        print "You entered in a fight mode."
+        print "Let's kill some monsters!"
+        print "You can start the battle now."
+        print "+" * 71
         return False
 
 

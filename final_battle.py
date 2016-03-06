@@ -195,15 +195,15 @@ class Environment:
                 break
 
 if __name__ == "__main__":
+
     from fighters.skypro1111 import Skypro
-    from fighters.bodidze import Bodidze
 
     u1 = Skypro('sky')
 
     u2 = Unit('COCA')
     u3 = Unit('TSOI')
     u4 = Unit('Kaligula')
-    u5 = Unit('Bod')
 
-    units = [u1, u2, u3, u4, u5]
+    units = [u1, u2, u3, u4]
+
     Environment(units)
