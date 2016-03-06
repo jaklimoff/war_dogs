@@ -18,9 +18,9 @@ class Skypro(Unit):
             self.filtered_enemies = filter(lambda enemy: (enemy.is_alive and enemy.name != self.name), self.enemies)
         else:
             self.filtered_enemies = filter(lambda enemy: (enemy.is_alive and enemy.name != self.name), self.filtered_enemies)
-        min_hp_tup = (enm.hp for enm in self.filtered_enemies)
-        if min_hp_tup != []:
-            mn = min(min_hp_tup)
+        min_hp_list = [enm.hp for enm in self.filtered_enemies]
+        if min_hp_list != []:
+            mn = min(min_hp_list)
         else:
             mn = 0
         enemy = None
@@ -29,8 +29,5 @@ class Skypro(Unit):
                 enemy = enm
         if self.hp <= sum([(7.5 + 7.5*enm.st/100) for enm in self.filtered_enemies])*self.dmg_coef:
             getattr(self, "_heal")(self)
-            print "heal"
         else:
             getattr(self, "_hit")(enemy)
-            print [(e.name, e.hp) for e in self.filtered_enemies]
-            print "{0} hit {1}".format(self.name, enemy.name)
