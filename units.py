@@ -74,6 +74,7 @@ class Unit:
     def __str__(self):
         return self.name
 
+
     @property
     def is_alive(self):
         return self.hp > 0
