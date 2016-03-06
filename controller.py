@@ -278,6 +278,83 @@ class RestController(HeroController):
             }
         self.commands.update(cmd)
 
+    def show_hero_slots(self):
+        for slot in self.hero.slots:
+            item_slot = self.hero.slots[slot]
+            slot_name = item_slot['name']
+            item = item_slot['item']
+            print "        {name} ({slot}) :>> {item_name}".format(slot=slot, name=slot_name, item_name=item.name)
+
+
+
+    def show_hero_stat(self):
+        print "=" * 39
+        print """
+        Hero name: {name}
+        HP: {health}
+        Hero agility: {agility}
+        Hero strength: {strength}
+                --
+
+        """.format(
+            name=self.hero.name,
+            health="[%s%s] %s%%" % ("#" * (self.hero.hp / 10), "_" * ((100 - self.hero.hp) / 10), self.hero.hp),
+            agility=self.hero.agility,
+            strength=self.hero.strength,
+        )
+        self.show_hero_slots()
+        print "=" * 39
+
+        return True
+
+    def show_hero_inventory(self):
+        print "=" * 39
+        print """
+        *** Inventory ***
+        """
+        items = self.hero.bag.get_items()
+        index = 0
+        for item in items:
+            if item.visible_in_bag:
+                print "     [%s] %s (%s)" % (index, item.name, item.amount)
+            index += 1
+        print "=" * 39
+        return True
+
+    def wear_to_hero(self):
+
+        self.show_hero_inventory()
+        item_index = raw_input("Choose your item [id]! :")
+        self.show_hero_slots()
+        slot = raw_input("Choose slot! :")
+        if slot is None:
+            return True
+
+        items = self.hero.bag.get_items()
+        item = items[int(item_index)]
+
+        if self.hero.wear(item, slot):
+            print "=" * 39
+            self.show_hero_slots()
+            print "=" * 39
+        else:
+            print "Error, while wearing!"
+        return True
+
+    def use_a_potion(self):
+        self.show_hero_inventory()
+        potion_index = raw_input("Choose your potion [id]! :")
+        items = self.hero.bag.get_items()
+        potion = items[int(potion_index)]
+        self.hero.use(potion)
+        print "=" * 39
+        self.show_hero_stat()
+        print "=" * 39
+        return True
+        #else:
+         #   print "Error, while drinking!"
+        #return True
+
 
     def fight(self):
 
