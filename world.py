@@ -83,7 +83,6 @@ class World:
                 if result =="strength":
                   self.strength += 1*self.level
 
-
     def fight(self):
         #lvl = self.knight.level
         number_of_enemies = random.randint(1, 3)
