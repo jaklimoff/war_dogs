@@ -1,23 +1,28 @@
+import random
 import time
 import sys
-
-#def do_task():
-#    time.sleep(0.5)
-
-#def example(n):
-#    for i in range(n):
-#        do_task()
-#        print '\b*',
-#        sys.stdout.flush()
-#    print ' Game loaded!'
-
-#print 'Starting ',
-#example(8)
+import os
 
 
-import progressbar
-import time
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
-progress = progressbar.ProgressBar()
-for i in progress(range(15), "Computing: ", 40):
-    time.sleep(0.1)
+
+while True:
+    value = random.randint(1, 10000)
+    clear()
+    print """
+
+    dsadasdasoidjasdjaskljdlkasj
+
+
+    dsadasdasoidjasdjaskljdlkasj
+    dsadasdasoidjasdjaskljdlkasj
+    dsadas     {value}      kljdlkasj
+    dsadasdasoidjasdjaskljdlkasj
+    dsadasdasoidjasdjaskljdlkasj
+
+    """.format(value=value)
+
+
+    time.sleep(0.2)
