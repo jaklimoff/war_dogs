@@ -4,7 +4,7 @@ import random
 import time
 import os
 import math
-from fighters.dummy_enemy import DummyEnemy
+
 
 
 def clear():
@@ -198,13 +198,14 @@ class Environment:
             r_message = ""
             random.shuffle(self.units)
             for unit in self.units:
-                time.sleep(1)
-                clear()
-
                 if unit.is_alive:
+                    time.sleep(0.2)
+                    clear()
+
                     unit.update()
                     amount = random.randint(-5, 5) + unit.attack
                     if unit.decision == "hit" and unit.st > 10:
+
                         e_x, e_y = unit.choosen_unit.position
                         u_x, u_y = unit.position
                         if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
@@ -246,9 +247,9 @@ class Environment:
                     x, y = unit.position
                     self.map.ring[y][x] = unit
 
-                print self.render_map()
-                print ">> " + r_message + " <<"
-                print self.render_units()
+                    print self.render_map()
+                    print ">> " + r_message + " <<"
+                    print self.render_units()
 
             self.units = filter(lambda unit: unit.is_alive, self.units)
 
@@ -264,14 +265,18 @@ class Environment:
 if __name__ == "__main__":
 
     from fighters.skypro1111 import Skypro
+    from fighters.bodidze import Bodidze
+    from fighters.dummy_enemy import DummyEnemy
 
-    u1 = Skypro('sky')
+    u1 = Skypro()
     u1.position = (0, 0)
     u2 = DummyEnemy('COCA')
     u2.position = (0, 1)
     u3 = DummyEnemy('TSOI')
     u3.position = (1, 2)
-    u4 = DummyEnemy('Kaligula')
+    u3 = DummyEnemy('TSOI')
+    u3.position = (2, 3)
+    u4 = Bodidze()
     u4.position = (2, 2)
 
     units = [u1, u2, u3, u4]

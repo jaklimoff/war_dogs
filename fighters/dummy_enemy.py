@@ -11,7 +11,7 @@ class DummyEnemy(Unit):
     def update(self):
         close_enemies = []
         for en in self.enemies:
-            if en != self:
+            if en != self and en.hp > 0:
                 x_dist = math.fabs(en.x - self.x)
                 y_dist = math.fabs(en.y - self.y)
                 if x_dist <= 1 or y_dist <= 1:
