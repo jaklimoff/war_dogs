@@ -158,7 +158,7 @@ class Unit:
         return False
 
     def hit(self, unit, point):
-        self.chosen_enemy = unit
+        self.choosen_enemy = unit
         self.hit_point = point
 
     def block(self, point):
