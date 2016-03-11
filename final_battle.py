@@ -167,6 +167,7 @@ class Environment:
             unit.attack = 10
             unit.enemies = self.units
             unit.ring = self.map.ring
+            unit.map = self.map
 
         clear()
         print "-" * 20
@@ -258,6 +259,7 @@ class Environment:
                     unit.mp += random.randint(0, 2)
                     unit.st += random.randint(0, 2)
 
+
             if len(self.units) <= 1:
                 break
 
@@ -265,20 +267,22 @@ class Environment:
 if __name__ == "__main__":
 
     from fighters.skypro1111 import Skypro
+    from fighters.karsv import Terminator
     from fighters.bodidze import Bodidze
     from fighters.dummy_enemy import DummyEnemy
 
     u1 = Skypro()
     u1.position = (0, 0)
     u2 = DummyEnemy('COCA')
-    u2.position = (0, 1)
-    u3 = DummyEnemy('TSOI')
-    u3.position = (1, 2)
-    u3 = DummyEnemy('TSOI')
-    u3.position = (2, 3)
-    u4 = Bodidze()
-    u4.position = (2, 2)
+    u2.position = (1, 1)
+    u2.hp = 30
 
-    units = [u1, u2, u3, u4]
+    u3 = Terminator()
+    u3.position = (3, 3)
+    u4 = Bodidze()
+    u4.position = (0, 0)
+
+
+    units = [u1, u2, u3]
 
     Environment(units)
