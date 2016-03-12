@@ -162,13 +162,20 @@ class Environment:
 
         return mapr
 
-    def distance(self, unit1, unit2):
+    def distance(self, pos1, pos2):
         """
 
         :return: Number of cells between the units
         """
-        e_x, e_y = unit1.choosen_unit.position
-        u_x, u_y = unit2.position
+        e_x, e_y = pos1
+        u_x, u_y = pos2
+        x_range = math.fabs(e_x - u_x)
+        y_range = math.fabs(e_y - u_y)
+        distance = math.sqrt((x_range ** 2) + (y_range ** 2))
+        # print "(UNIT1) X:%s Y:%s" % (e_x, e_y)
+        # print "(UNIT2) X:%s Y:%s" % (u_x, u_y)
+        # print "DISTANCE = %s" % int(distance)
+        return int(distance)
         # if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
 
 
@@ -205,7 +212,7 @@ class Environment:
              /|
         """
         print "-" * 20
-        time.sleep(5)
+        time.sleep(2)
 
         while True:
             r_message = ""
@@ -218,9 +225,7 @@ class Environment:
                     unit.update()
                     amount = random.randint(-5, 5) + unit.attack
                     if unit.decision == "bighit" and unit.st > 25:
-                        e_x, e_y = unit.choosen_unit.position
-                        u_x, u_y = unit.position
-                        if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
+                        if self.distance(unit.choosen_unit.position, unit.position) <= 1:
                             damage = amount / 2 + (amount / 2 * unit.st / 100)
                             unit.st -= 25
                             unit.choosen_unit.hp -= damage * 5
@@ -231,9 +236,7 @@ class Environment:
                             }
                             r_message = "{unit} hit {enemy} with {damage} damage".format(**kw)
                     elif unit.decision == "hit" and unit.st > 10:
-                        e_x, e_y = unit.choosen_unit.position
-                        u_x, u_y = unit.position
-                        if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
+                        if self.distance(unit.choosen_unit.position, unit.position) <= 1:
                             damage = amount / 2 + (amount / 2 * unit.st / 100)
                             unit.st -= 5
                             unit.choosen_unit.hp -= damage
