@@ -32,7 +32,7 @@ class Unit(object):
     _mp = 100
     _st = 100
 
-    attack = 50
+    attack = 10
     decision = ""
     # enemies = None
     choosen_unit = None
@@ -205,8 +205,20 @@ class Environment:
 
                     unit.update()
                     amount = random.randint(-5, 5) + unit.attack
-                    if unit.decision == "hit" and unit.st > 10:
-
+                    if unit.decision == "bighit" and unit.st > 25:
+                        e_x, e_y = unit.choosen_unit.position
+                        u_x, u_y = unit.position
+                        if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
+                            damage = amount / 2 + (amount / 2 * unit.st / 100)
+                            unit.st -= 25
+                            unit.choosen_unit.hp -= damage * 5
+                            kw = {
+                                "unit": unit.name,
+                                "enemy": unit.choosen_unit.name,
+                                "damage": damage
+                            }
+                            r_message = "{unit} hit {enemy} with {damage} damage".format(**kw)
+                    elif unit.decision == "hit" and unit.st > 10:
                         e_x, e_y = unit.choosen_unit.position
                         u_x, u_y = unit.position
                         if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
