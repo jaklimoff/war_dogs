@@ -288,17 +288,17 @@ if __name__ == "__main__":
     from fighters.dummy_enemy import DummyEnemy
 
     u1 = Skypro()
-    u1.position = (0, 0)
+    u1.position = (3, 3)
     u2 = DummyEnemy('COCA')
-    u2.position = (1, 1)
+    u2.position = (1, 2)
     u2.hp = 30
 
     u3 = Terminator()
-    u3.position = (3, 3)
+    u3.position = (0, 0)
     u4 = Bodidze()
-    u4.position = (0, 1)
+    u4.position = (3, 3)
 
 
-    units = [u1, u2, u3, u4]
+    units = [u3, u4]
 
     Environment(units)
