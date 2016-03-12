@@ -4,42 +4,27 @@ __author__ = 'nikolaychik'
 
 from final_battle import Unit
 import random
+import math
 
 class Nikolaychik(Unit):
-    dmg_coef = 1.5
-
-    def __init__(self, name='N4k'):
-        Unit.__init__(self)
-        self.name = name
-        self.filtered_enemies = []
+    name = "N4k"
+    def find_perfect_direction(self):
+        return random.randint(-1, 1), random.randint(-1, 1)
 
     def update(self):
-        if self.filtered_enemies == []:
-            self.filtered_enemies = filter(lambda enemy: (enemy.is_alive and enemy.name != self.name), self.enemies)
-            self.filtered_enemies = filter(lambda enemy: (abs(abs(enemy.position[0])-abs(self.position[0]))<2 and abs(abs(enemy.position[1])-abs(self.position[1]))<2), self.filtered_enemies)
-        else:
-            self.filtered_enemies = filter(lambda enemy: (enemy.is_alive and enemy.name != self.name), self.filtered_enemies)
-            self.filtered_enemies = filter(lambda enemy: (abs(abs(enemy.position[0])-abs(self.position[0]))<2 and abs(abs(enemy.position[1])-abs(self.position[1]))<2), self.filtered_enemies)
+        close_enemies = []
+        for en in self.enemies:
+            if en != self and en.hp > 0:
+                x_dist = math.fabs(en.x - self.x)
+                y_dist = math.fabs(en.y - self.y)
+                if x_dist <= 1 or y_dist <= 1:
+                    close_enemies.append(en)
 
-        if self.filtered_enemies != []:
-            min_hp_list = [enm.hp for enm in self.filtered_enemies]
-        else:
-            min_hp_list = [0]
-        if min_hp_list != []:
-            mn = min(min_hp_list)
-        else:
-            mn = 0
-        enemy = None
-        for enm in self.filtered_enemies:
-            if enm.hp == mn:
-                enemy = enm
 
-        if self.filtered_enemies == []:
-            self._move(random.randint(-1, 1), random.randint(-1, 1))
-            return
-        if self.hp <= sum([(7.5 + 7.5*enm.st/100) for enm in self.filtered_enemies])*self.dmg_coef:
+        if self.hp <= sum([(7.5 + 7.5*enm.st/100) for enm in close_enemies])*1.5:
             getattr(self, "_heal")(self)
             return
         else:
-            getattr(self, "_hit")(enemy)
-            return
+            weak_enemy = min(close_enemies, key=lambda x: x.hp)
+            self._hit(weak_enemy)
+

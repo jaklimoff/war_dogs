@@ -318,20 +318,12 @@ if __name__ == "__main__":
 
     from fighters.karsv import Terminator
     from fighters.bodidze import Bodidze
-
-
-    u1 = Skypro('sky')
-
-    u2 = Unit('COCA')
-    u3 = Unit('TSOI')
-    u4 = Unit('Kaligula')
-    u5 = Unit ('Bod')
-
     from fighters.dummy_enemy import DummyEnemy, BigDaddy
     from fighters.nikolaychik import Nikolaychik
 
 
     u1 = Skypro()
+<<<<<<< HEAD
 
     u1.position = (0, 0)
     u2 = ITymoshenko()
@@ -345,16 +337,30 @@ if __name__ == "__main__":
     u2 = DummyEnemy('COCA')
     u2.position = (1, 2)
     u2.hp = 30
+=======
+    u1.position = (0, 0)
+    u2 = Bodidze('Bod')
+    u2.position = (0, 1)
+    u3 = Nikolaychik()
+    u3.position = (1, 2)
+    u4 = Terminator()
+    u4.position = (3, 3)
+    u5 = DummyEnemy('TSOI')
+    u5.position = (2, 3)
+    u6 = Bodidze()
+    u6.position = (2, 2)
+    # u5 = BigDaddy()
+    # u5.position = (3, 3)
 
-    u3 = Terminator()
-    u3.position = (0, 0)
-    u4 = Bodidze()
-    u4.position = (2, 2)
-    u5 = BigDaddy()
-    u5.position = (3, 3)
+>>>>>>> 3b1001021b106952312d6f8f12182eaeba3254a4
 
 
+
+<<<<<<< HEAD
     units = [u1, u2, u3, u4]
     units = [u1, u2, u3, u4, u5]
+=======
+    units = [u1, u2, u3, u4, u5, u6]
+>>>>>>> 3b1001021b106952312d6f8f12182eaeba3254a4
 
     Environment(units)
