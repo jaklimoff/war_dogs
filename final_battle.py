@@ -101,6 +101,10 @@ class Unit(object):
         self.choosen_unit = unit
         self.decision = "hit"
 
+    def _bighit(self, unit):
+        self.choosen_unit = unit
+        self.decision = "bighit"
+
     def _heal(self, unit):
         self.choosen_unit = unit
         self.decision = "heal"
@@ -209,9 +213,9 @@ class Environment:
                         e_x, e_y = unit.choosen_unit.position
                         u_x, u_y = unit.position
                         if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
-                            damage = amount / 2 + (amount / 2 * unit.st / 100)
+                            damage = (amount / 2 + (amount / 2 * unit.st / 100)) * 5
                             unit.st -= 25
-                            unit.choosen_unit.hp -= damage * 5
+                            unit.choosen_unit.hp -= damage
                             kw = {
                                 "unit": unit.name,
                                 "enemy": unit.choosen_unit.name,
