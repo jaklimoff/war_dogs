@@ -6,7 +6,6 @@ import os
 import math
 
 
-
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -101,6 +100,10 @@ class Unit(object):
         self.choosen_unit = unit
         self.decision = "hit"
 
+    def _bighit(self, unit):
+        self.choosen_unit = unit
+        self.decision = "bighit"
+
     def _heal(self, unit):
         self.choosen_unit = unit
         self.decision = "heal"
@@ -159,6 +162,23 @@ class Environment:
 
         return mapr
 
+    def distance(self, pos1, pos2):
+        """
+
+        :return: Number of cells between the units
+        """
+        e_x, e_y = pos1
+        u_x, u_y = pos2
+        x_range = math.fabs(e_x - u_x)
+        y_range = math.fabs(e_y - u_y)
+        distance = math.sqrt((x_range ** 2) + (y_range ** 2))
+        # print "(UNIT1) X:%s Y:%s" % (e_x, e_y)
+        # print "(UNIT2) X:%s Y:%s" % (u_x, u_y)
+        # print "DISTANCE = %s" % int(distance)
+        return int(distance)
+        # if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
+
+
     def __init__(self, units):
         self.map = Map()
         self.units = units
@@ -181,7 +201,7 @@ class Environment:
 
             ______________________________________
           ,' -> May the force be with you!         `.
-         /  ->   Lets start the battle               \
+         /  ->   Lets start the battle              |
         |  ->       AND BIT SOME ASS                 |
         |                                            |
          \  -> ...                                  /
@@ -192,7 +212,7 @@ class Environment:
              /|
         """
         print "-" * 20
-        time.sleep(5)
+        time.sleep(2)
 
         while True:
             r_message = ""
@@ -205,9 +225,7 @@ class Environment:
                     unit.update()
                     amount = random.randint(-5, 5) + unit.attack
                     if unit.decision == "bighit" and unit.st > 25:
-                        e_x, e_y = unit.choosen_unit.position
-                        u_x, u_y = unit.position
-                        if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
+                        if self.distance(unit.choosen_unit.position, unit.position) <= 1:
                             damage = amount / 2 + (amount / 2 * unit.st / 100)
                             unit.st -= 25
                             unit.choosen_unit.hp -= damage * 5
@@ -218,9 +236,7 @@ class Environment:
                             }
                             r_message = "{unit} hit {enemy} with {damage} damage".format(**kw)
                     elif unit.decision == "hit" and unit.st > 10:
-                        e_x, e_y = unit.choosen_unit.position
-                        u_x, u_y = unit.position
-                        if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
+                        if self.distance(unit.choosen_unit.position, unit.position) <= 1:
                             damage = amount / 2 + (amount / 2 * unit.st / 100)
                             unit.st -= 5
                             unit.choosen_unit.hp -= damage
@@ -255,11 +271,19 @@ class Environment:
                             final_y = y
 
                         unit.position = (final_x, final_y)
+                        kw = {
+                            "unit": unit.name,
+                            "amount": amount,
+                            "final_x": final_x,
+                            "final_y": final_y
+                        }
+                        r_message = "{unit} moved to X:{final_x} Y:{final_y}".format(**kw)
 
                     x, y = unit.position
                     self.map.ring[y][x] = unit
 
                     print self.render_map()
+
                     print ">> " + r_message + " <<"
                     print self.render_units()
 
@@ -275,7 +299,6 @@ class Environment:
 
 
 if __name__ == "__main__":
-
     from fighters.skypro1111 import Skypro
 
     from fighters.itymoshenko import ITymoshenko
@@ -286,7 +309,18 @@ if __name__ == "__main__":
     u4 = Unit('Kaligula')
 
     from fighters.bodidze import Bodidze
+
+
+    u1 = Skypro('sky')
+
+    u2 = Unit('COCA')
+    u3 = Unit('TSOI')
+    u4 = Unit('Kaligula')
+    u5 = Unit ('Bod')
+
     from fighters.dummy_enemy import DummyEnemy
+    from fighters.nikolaychik import Nikolaychik
+
 
     u1 = Skypro()
     u1.position = (0, 0)
@@ -298,8 +332,10 @@ if __name__ == "__main__":
     u3.position = (2, 3)
     u4 = Bodidze()
     u4.position = (2, 2)
+    u5 = Nikolaychik()
+    u5.position = (3, 3)
 
 
     units = [u1, u2, u3, u4]
-
+    units = [u1, u2, u3, u4, u5]
     Environment(units)
