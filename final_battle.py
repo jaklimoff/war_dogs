@@ -299,6 +299,8 @@ if __name__ == "__main__":
     from fighters.skypro1111 import Skypro
     from fighters.bodidze import Bodidze
     from fighters.dummy_enemy import DummyEnemy
+    from fighters.nikolaychik import Nikolaychik
+
 
     u1 = Skypro()
     u1.position = (0, 0)
@@ -310,7 +312,10 @@ if __name__ == "__main__":
     u3.position = (2, 3)
     u4 = Bodidze()
     u4.position = (2, 2)
+    u5 = Nikolaychik()
+    u5.position = (3, 3)
 
-    units = [u1, u2, u3, u4]
+
+    units = [u1, u2, u3, u4, u5]
 
     Environment(units)
