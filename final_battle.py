@@ -183,8 +183,8 @@ class Environment:
         self.map = Map()
         self.units = units
         for unit in self.units:
-            unit.health = 100
-            unit.attack = 10
+            # unit.health = 100
+            # unit.attack = 10
             unit.enemies = self.units
             unit.ring = self.map.ring
 
@@ -289,10 +289,18 @@ class Environment:
 
             self.units = filter(lambda unit: unit.is_alive, self.units)
 
+            for y, x_row in enumerate(self.map.ring):
+                for x, value in enumerate(x_row):
+                    if hasattr(value, "is_alive") and not value.is_alive:
+                        self.map.ring[y][x] = 0
+
+
             for unit in self.units:
                 if unit.is_alive:
                     unit.mp += random.randint(0, 2)
                     unit.st += random.randint(0, 2)
+
+
 
             if len(self.units) <= 1:
                 break
@@ -318,7 +326,7 @@ if __name__ == "__main__":
     u4 = Unit('Kaligula')
     u5 = Unit ('Bod')
 
-    from fighters.dummy_enemy import DummyEnemy
+    from fighters.dummy_enemy import DummyEnemy, BigDaddy
     from fighters.nikolaychik import Nikolaychik
 
 
@@ -332,7 +340,7 @@ if __name__ == "__main__":
     u3.position = (2, 3)
     u4 = Bodidze()
     u4.position = (2, 2)
-    u5 = Nikolaychik()
+    u5 = BigDaddy()
     u5.position = (3, 3)
 
 
