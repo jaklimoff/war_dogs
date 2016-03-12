@@ -50,6 +50,7 @@ class Terminator(Unit):
         dx = [0, 1, -1]
         dy = [-1, 0, 1]
         dist = 999
+        way = []
         for ex in dx:
             for ey in dy:
                 go = []
@@ -64,18 +65,15 @@ class Terminator(Unit):
                     continue
                 if self.dist(enemy.position[0], enemy.position[1], dist_x, dist_y) < dist:
                     dist = self.dist(enemy.position[0], enemy.position[1], dist_x, dist_y)
-                    x = ex
-                    y = ey
-                    go.append(x)
-                    go.append(y)
-                    posi = go
-        return posi
+                    go = [ex, ey]
+                    way.append(go)
+        return way
+
 
     def astar(self, enemy):
         a_map = copy.deepcopy(self.map.ring)
         dx = [-1, 0, 1]
         dy = [-1, 0, 1]
-        step = 0
         for i, line in enumerate(a_map):
             for j, value in enumerate(line):
                 if value == 0:
@@ -83,30 +81,60 @@ class Terminator(Unit):
         sx = self.position[0]
         sy = self.position[1]
         a_map[sx][sy] = 0
-        while True:
+        step = 0
+        flag = True
+        while flag == True:
+            for i, line in enumerate(a_map):
+                for j, value in enumerate(line):
+                    if value == step:
+                        for x in dx:
+                            for y in dy:
+                                xe = i + x
+                                ye = j + y
+                                if xe < 0 or xe > 3 \
+                                   or 0 > ye or ye > 3 \
+                                   or (xe == self.position[0] and ye == self.position[1]):
+                                    continue
+                                elif xe == enemy.position[0] and ye == enemy.position[1]:
+                                    flag = False
+                                elif a_map[xe][ye] != -1:
+                                    continue
+                                else:
+                                    a_map[xe][ye] = step+1
+                    elif value == step - 1:
+                        continue
             step += 1
+        sflag = True
+        way = []
+        enx = enemy.position[0]
+        eny = enemy.position[1]
+        while sflag == True:
+            point_way = []
             for x in dx:
                 for y in dy:
-                    sx += x
-                    sy += y
-                    if sx < 0 or sx > 3 \
-                       or 0 > sy or sy > 3 \
-                       or (sx == self.position[0] and sy == self.position[1]):
+                    if step == 1:
+                        sflag = False
+                    xs = enx + x
+                    xy = eny + y
+                    if xs < 0 or xs > 3 \
+                        or 0 > xy or xy > 3 \
+                        or (xs == enx and xy == eny):
                         continue
-                    elif a_map[sx][sy] != -1:
-                        continue
-                    elif a_map[sx][sy] == enemy.position:
+                    elif a_map[xs][xy] == step:
+                        enx = xs
+                        eny = xy
+                        step -= 1
+                        point_way = [-x, -y]
+                        way.append(point_way)
                         break
                     else:
-                        a_map[sx][sy] = step
-        return a_map
-
+                        continue
+        return way
 
 
     def update(self):
         real_en = self.enemy()
         sec_wave = self.second_wave()
-        yyy = self.astar(self.enemies[0])
         if self.hp <= len(real_en) * 30:
             self._heal(self)
         elif real_en != []:
@@ -117,17 +145,16 @@ class Terminator(Unit):
             self._hit(self.lh_enemy)
         elif real_en == []:
             if sec_wave != []:
-                pass
-            elif self.hp <100:
+                self._move(0, 0)
+            if self.hp < 100:
                 self._heal(self)
             else:
-                nextpos = self.en_coord(self.enemies[0])
-                x = nextpos[0]
-                y = nextpos[1]
+                self.way_enemy = self.enemies[0]
+                for i in self.enemies:
+                    if i.hp <= 100 and i.hp < self.way_enemy.hp:
+                        self.way_enemy = i
+                way = self.astar(self.way_enemy)
+                way.reverse()
+                x = way[0][0]
+                y = way[0][1]
                 self._move(x, y)
-
-
-
-
-
-
