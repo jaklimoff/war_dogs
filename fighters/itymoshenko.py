@@ -4,12 +4,12 @@ from final_battle import Unit
 class ITymoshenko(Unit):
     name = "Tim"
 
-    def chose_enemy(self):
-       for enemy in self.enemies:
-           if self.position != self.enemies.position: # how?
-              return enemy
-           else:
-               return None
+#    def chose_enemy(self):
+#       for enemy in self.enemies:
+#           if self.position != self.enemies.position: # how?
+#              return enemy
+#           else:
+#               return None
 
 
     def update(self):
@@ -23,7 +23,3 @@ class ITymoshenko(Unit):
             self._heal(self)
         else:
             self._move(2, 2)
-
- #   def check_position(self):
- #       if self.enemies.
-

@@ -74,12 +74,12 @@ class World:
                     slot_name = item_slot['name']
                     item = item_slot['item']
                     print "{enemy:<7}   {name} :>> {item_name}".format(enemy=enemy.name, name=slot_name, item_name=item.name)
-            if self.levelup:
+            if self.knight.levelup == True:
                 print "Knight is leveled up!"
                 print "Type what you want to increase: agility or strength?"
                 result = raw_input("Type what you want to increase: agility or strength?")
                 if result =="agility":
-                  self.agility += 1*self.level
+                    self.agility += 1*self.level
                 if result =="strength":
                   self.strength += 1*self.level
 

@@ -65,14 +65,19 @@ class Unit:
     exp_map = [100, 200, 400, 500]
 
     def use(self, potion):
-        potion.uses -= 1
-        self.hp += potion.restored_hp
-        if potion.uses <= 0:
-            self.bag.remove_item(potion)
+        try:
+            potion.uses -= 1
+            self.hp += potion.restored_hp
+            if potion.uses <= 0:
+                self.bag.remove_item(potion)
+                return True
+        except AttributeError:
+            print "Not available to use"
             return True
 
     def __str__(self):
         return self.name
+
 
     @property
     def is_alive(self):
@@ -153,7 +158,7 @@ class Unit:
         return False
 
     def hit(self, unit, point):
-        self.chosen_enemy = unit
+        self.choosen_enemy = unit
         self.hit_point = point
 
     def block(self, point):
