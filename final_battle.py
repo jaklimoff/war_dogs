@@ -309,33 +309,26 @@ class Environment:
 if __name__ == "__main__":
     from fighters.skypro1111 import Skypro
     from fighters.bodidze import Bodidze
-
-
-    u1 = Skypro('sky')
-
-    u2 = Unit('COCA')
-    u3 = Unit('TSOI')
-    u4 = Unit('Kaligula')
-    u5 = Unit ('Bod')
-
     from fighters.dummy_enemy import DummyEnemy, BigDaddy
     from fighters.nikolaychik import Nikolaychik
 
 
     u1 = Skypro()
     u1.position = (0, 0)
-    u2 = DummyEnemy('COCA')
+    u2 = Bodidze('Bod')
     u2.position = (0, 1)
-    u3 = DummyEnemy('TSOI')
+    u3 = Nikolaychik()
     u3.position = (1, 2)
-    u3 = DummyEnemy('TSOI')
-    u3.position = (2, 3)
-    u4 = Bodidze()
-    u4.position = (2, 2)
-    u5 = BigDaddy()
-    u5.position = (3, 3)
+    u4 = DummyEnemy('BuRatino')
+    u4.position = (3, 3)
+    u5 = DummyEnemy('TSOI')
+    u5.position = (2, 3)
+    u6 = Bodidze()
+    u6.position = (2, 2)
+    # u5 = BigDaddy()
+    # u5.position = (3, 3)
 
 
-    units = [u1, u2, u3, u4, u5]
+    units = [u1, u2, u3, u4, u5, u6]
 
     Environment(units)
