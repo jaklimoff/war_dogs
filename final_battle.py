@@ -169,7 +169,7 @@ class Environment:
         """
         e_x, e_y = unit1.choosen_unit.position
         u_x, u_y = unit2.position
-        if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
+        # if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
 
 
     def __init__(self, units):
