@@ -1,30 +1,29 @@
 
-import random
-import time
-import sys
-import os
+
+class A(object):
+    value = None
+    name = "Bob"
+
+    def __init__(self, value):
+        self.value = value
+
+    def __str__(self):
+        return str(self.value)
+
+    def __repr__(self):
+        return "CLASS WITH VALUE %s" % str(self.value)
+
+    def __add__(self, other):
+        cr = []
+        cr.append(self)
+        cr.append(other)
+        return cr
+
+    def __mod__(self, other):
+        return str(self.value) + " " + str(other.value)
 
 
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
+arg1 = A(10)
+arg2 = A(5)
 
-
-while True:
-    value = random.randint(1, 10000)
-    clear()
-    print """
-
-    dsadasdasoidjasdjaskljdlkasj
-
-
-    dsadasdasoidjasdjaskljdlkasj
-    dsadasdasoidjasdjaskljdlkasj
-    dsadas     {value}      kljdlkasj
-    dsadasdasoidjasdjaskljdlkasj
-    dsadasdasoidjasdjaskljdlkasj
-
-    """.format(value=value)
-
-
-    time.sleep(0.2)
-
+print arg1.value
