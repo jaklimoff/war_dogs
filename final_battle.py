@@ -187,6 +187,7 @@ class Environment:
             # unit.attack = 10
             unit.enemies = self.units
             unit.ring = self.map.ring
+            unit.map = self.map
 
         clear()
         print "-" * 20
@@ -225,10 +226,11 @@ class Environment:
                     unit.update()
                     amount = random.randint(-5, 5) + unit.attack
                     if unit.decision == "bighit" and unit.st > 25:
+
                         if self.distance(unit.choosen_unit.position, unit.position) <= 1:
                             damage = amount / 2 + (amount / 2 * unit.st / 100)
                             unit.st -= 25
-                            unit.choosen_unit.hp -= damage * 5
+                            unit.choosen_unit.hp -= damage
                             kw = {
                                 "unit": unit.name,
                                 "enemy": unit.choosen_unit.name,
@@ -300,8 +302,6 @@ class Environment:
                     unit.mp += random.randint(0, 2)
                     unit.st += random.randint(0, 2)
 
-
-
             if len(self.units) <= 1:
                 break
 
@@ -316,6 +316,7 @@ if __name__ == "__main__":
     u3 = Unit('TSOI')
     u4 = Unit('Kaligula')
 
+    from fighters.karsv import Terminator
     from fighters.bodidze import Bodidze
 
 
@@ -331,6 +332,7 @@ if __name__ == "__main__":
 
 
     u1 = Skypro()
+
     u1.position = (0, 0)
     u2 = ITymoshenko()
     u2.position = (0, 1)
@@ -338,6 +340,14 @@ if __name__ == "__main__":
     u3.position = (1, 2)
     u3 = DummyEnemy('TSOI')
     u3.position = (2, 3)
+
+    u1.position = (3, 3)
+    u2 = DummyEnemy('COCA')
+    u2.position = (1, 2)
+    u2.hp = 30
+
+    u3 = Terminator()
+    u3.position = (0, 0)
     u4 = Bodidze()
     u4.position = (2, 2)
     u5 = BigDaddy()
@@ -346,4 +356,5 @@ if __name__ == "__main__":
 
     units = [u1, u2, u3, u4]
     units = [u1, u2, u3, u4, u5]
+
     Environment(units)
