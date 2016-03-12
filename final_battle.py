@@ -202,7 +202,7 @@ class Environment:
             ______________________________________
           ,' -> May the force be with you!         `.
          /  ->   Lets start the battle              |
-        |  ->       AND BIT SOME ASS                 |
+        |  ->       AND BEAT SOME ASS                 |
         |                                            |
          \  -> ...                                  /
           `._______  _____________________________,'
