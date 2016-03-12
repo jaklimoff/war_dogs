@@ -6,22 +6,19 @@ from final_battle import Unit
 import random
 
 class Skypro(Unit):
-    dmg_coef = 1.5
+    dmg_coef = 1
 
     def __init__(self, name='Sky'):
         Unit.__init__(self)
         self.name = name
         self.filtered_enemies = []
 
-    def update(self):
-        if self.filtered_enemies == []:
-            self.filtered_enemies = filter(lambda enemy: (enemy.is_alive and enemy.name != self.name), self.enemies)
-            self.filtered_enemies = filter(lambda enemy: (abs(abs(enemy.position[0])-abs(self.position[0]))<2 and abs(abs(enemy.position[1])-abs(self.position[1]))<2), self.filtered_enemies)
-        else:
-            self.filtered_enemies = filter(lambda enemy: (enemy.is_alive and enemy.name != self.name), self.filtered_enemies)
-            self.filtered_enemies = filter(lambda enemy: (abs(abs(enemy.position[0])-abs(self.position[0]))<2 and abs(abs(enemy.position[1])-abs(self.position[1]))<2), self.filtered_enemies)
+    def filter_enemies(self, enemies):
+        tmp = filter(lambda enemy: (enemy.is_alive and enemy.name != self.name), enemies)
+        return filter(lambda enemy: (abs(abs(enemy.position[0])-abs(self.position[0]))<2 and abs(abs(enemy.position[1])-abs(self.position[1]))<2), tmp)
 
-        if self.filtered_enemies != []:
+    def choose_enemy(self, enemies):
+        if enemies != []:
             min_hp_list = [enm.hp for enm in self.filtered_enemies]
         else:
             min_hp_list = [0]
@@ -29,11 +26,13 @@ class Skypro(Unit):
             mn = min(min_hp_list)
         else:
             mn = 0
-        enemy = None
-        for enm in self.filtered_enemies:
+        for enm in enemies:
             if enm.hp == mn:
-                enemy = enm
+                return enm
 
+    def update(self):
+        self.filtered_enemies = self.filter_enemies(self.enemies)
+        enemy = self.choose_enemy(self.filtered_enemies)
         if self.filtered_enemies == []:
             self._move(random.randint(-1, 1), random.randint(-1, 1))
             return

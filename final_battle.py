@@ -187,6 +187,7 @@ class Environment:
             # unit.attack = 10
             unit.enemies = self.units
             unit.ring = self.map.ring
+            unit.map = self.map
 
         clear()
         print "-" * 20
@@ -225,10 +226,11 @@ class Environment:
                     unit.update()
                     amount = random.randint(-5, 5) + unit.attack
                     if unit.decision == "bighit" and unit.st > 25:
+
                         if self.distance(unit.choosen_unit.position, unit.position) <= 1:
                             damage = amount / 2 + (amount / 2 * unit.st / 100)
                             unit.st -= 25
-                            unit.choosen_unit.hp -= damage * 5
+                            unit.choosen_unit.hp -= damage
                             kw = {
                                 "unit": unit.name,
                                 "enemy": unit.choosen_unit.name,
@@ -300,14 +302,13 @@ class Environment:
                     unit.mp += random.randint(0, 2)
                     unit.st += random.randint(0, 2)
 
-
-
             if len(self.units) <= 1:
                 break
 
 
 if __name__ == "__main__":
     from fighters.skypro1111 import Skypro
+    from fighters.karsv import Terminator
     from fighters.bodidze import Bodidze
     from fighters.dummy_enemy import DummyEnemy, BigDaddy
     from fighters.nikolaychik import Nikolaychik
@@ -319,7 +320,7 @@ if __name__ == "__main__":
     u2.position = (0, 1)
     u3 = Nikolaychik()
     u3.position = (1, 2)
-    u4 = DummyEnemy('BuRatino')
+    u4 = Terminator()
     u4.position = (3, 3)
     u5 = DummyEnemy('TSOI')
     u5.position = (2, 3)
@@ -329,6 +330,9 @@ if __name__ == "__main__":
     # u5.position = (3, 3)
 
 
+
+
     units = [u1, u2, u3, u4, u5, u6]
+
 
     Environment(units)
