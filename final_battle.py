@@ -6,7 +6,6 @@ import os
 import math
 
 
-
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -101,6 +100,10 @@ class Unit(object):
         self.choosen_unit = unit
         self.decision = "hit"
 
+    def _bighit(self, unit):
+        self.choosen_unit = unit
+        self.decision = "bighit"
+
     def _heal(self, unit):
         self.choosen_unit = unit
         self.decision = "heal"
@@ -159,6 +162,16 @@ class Environment:
 
         return mapr
 
+    def distance(self, unit1, unit2):
+        """
+
+        :return: Number of cells between the units
+        """
+        e_x, e_y = unit1.choosen_unit.position
+        u_x, u_y = unit2.position
+        # if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
+
+
     def __init__(self, units):
         self.map = Map()
         self.units = units
@@ -181,7 +194,7 @@ class Environment:
 
             ______________________________________
           ,' -> May the force be with you!         `.
-         /  ->   Lets start the battle               \
+         /  ->   Lets start the battle              |
         |  ->       AND BIT SOME ASS                 |
         |                                            |
          \  -> ...                                  /
@@ -255,11 +268,19 @@ class Environment:
                             final_y = y
 
                         unit.position = (final_x, final_y)
+                        kw = {
+                            "unit": unit.name,
+                            "amount": amount,
+                            "final_x": final_x,
+                            "final_y": final_y
+                        }
+                        r_message = "{unit} moved to X:{final_x} Y:{final_y}".format(**kw)
 
                     x, y = unit.position
                     self.map.ring[y][x] = unit
 
                     print self.render_map()
+
                     print ">> " + r_message + " <<"
                     print self.render_units()
 
@@ -275,7 +296,6 @@ class Environment:
 
 
 if __name__ == "__main__":
-
     from fighters.skypro1111 import Skypro
     from fighters.bodidze import Bodidze
 
@@ -288,6 +308,8 @@ if __name__ == "__main__":
     u5 = Unit ('Bod')
 
     from fighters.dummy_enemy import DummyEnemy
+    from fighters.nikolaychik import Nikolaychik
+
 
     u1 = Skypro()
     u1.position = (0, 0)
@@ -299,6 +321,9 @@ if __name__ == "__main__":
     u3.position = (2, 3)
     u4 = Bodidze()
     u4.position = (2, 2)
+    u5 = Nikolaychik()
+    u5.position = (3, 3)
+
 
     units = [u1, u2, u3, u4, u5]
 

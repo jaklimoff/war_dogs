@@ -5,7 +5,7 @@ class Bodidze(Unit):
     name = "Bod"
 
     def update(self):
-        self._move(random.randint(0, 1), random.randint(0, 1))
+        self._move(random.randint(1, 1), random.randint(1, 1))
 
         if self.is_alive:
           enemy = filter(lambda enemy: (enemy.is_alive and enemy.name != self.name), self.enemies)[0]
