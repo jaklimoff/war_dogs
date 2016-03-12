@@ -301,6 +301,15 @@ class Environment:
 if __name__ == "__main__":
     from fighters.skypro1111 import Skypro
     from fighters.bodidze import Bodidze
+
+
+    u1 = Skypro('sky')
+
+    u2 = Unit('COCA')
+    u3 = Unit('TSOI')
+    u4 = Unit('Kaligula')
+    u5 = Unit ('Bod')
+
     from fighters.dummy_enemy import DummyEnemy
     from fighters.nikolaychik import Nikolaychik
 
