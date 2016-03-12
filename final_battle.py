@@ -290,7 +290,7 @@ if __name__ == "__main__":
 
     u1 = Skypro()
     u1.position = (0, 0)
-    u2 = DummyEnemy('COCA')
+    u2 = ITymoshenko()
     u2.position = (0, 1)
     u3 = DummyEnemy('TSOI')
     u3.position = (1, 2)
