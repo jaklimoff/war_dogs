@@ -162,13 +162,20 @@ class Environment:
 
         return mapr
 
-    def distance(self, unit1, unit2):
+    def distance(self, pos1, pos2):
         """
 
         :return: Number of cells between the units
         """
-        e_x, e_y = unit1.choosen_unit.position
-        u_x, u_y = unit2.position
+        e_x, e_y = pos1
+        u_x, u_y = pos2
+        x_range = math.fabs(e_x - u_x)
+        y_range = math.fabs(e_y - u_y)
+        distance = math.sqrt((x_range ** 2) + (y_range ** 2))
+        # print "(UNIT1) X:%s Y:%s" % (e_x, e_y)
+        # print "(UNIT2) X:%s Y:%s" % (u_x, u_y)
+        # print "DISTANCE = %s" % int(distance)
+        return int(distance)
         # if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
 
 
@@ -176,8 +183,8 @@ class Environment:
         self.map = Map()
         self.units = units
         for unit in self.units:
-            unit.health = 100
-            unit.attack = 10
+            # unit.health = 100
+            # unit.attack = 10
             unit.enemies = self.units
             unit.ring = self.map.ring
 
@@ -195,7 +202,7 @@ class Environment:
             ______________________________________
           ,' -> May the force be with you!         `.
          /  ->   Lets start the battle              |
-        |  ->       AND BIT SOME ASS                 |
+        |  ->       AND BEAT SOME ASS                 |
         |                                            |
          \  -> ...                                  /
           `._______  _____________________________,'
@@ -205,7 +212,7 @@ class Environment:
              /|
         """
         print "-" * 20
-        time.sleep(5)
+        time.sleep(2)
 
         while True:
             r_message = ""
@@ -218,9 +225,7 @@ class Environment:
                     unit.update()
                     amount = random.randint(-5, 5) + unit.attack
                     if unit.decision == "bighit" and unit.st > 25:
-                        e_x, e_y = unit.choosen_unit.position
-                        u_x, u_y = unit.position
-                        if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
+                        if self.distance(unit.choosen_unit.position, unit.position) <= 1:
                             damage = amount / 2 + (amount / 2 * unit.st / 100)
                             unit.st -= 25
                             unit.choosen_unit.hp -= damage * 5
@@ -231,9 +236,7 @@ class Environment:
                             }
                             r_message = "{unit} hit {enemy} with {damage} damage".format(**kw)
                     elif unit.decision == "hit" and unit.st > 10:
-                        e_x, e_y = unit.choosen_unit.position
-                        u_x, u_y = unit.position
-                        if math.fabs(e_x - u_x) <= 1 or math.fabs(e_y - u_y) <= 1:
+                        if self.distance(unit.choosen_unit.position, unit.position) <= 1:
                             damage = amount / 2 + (amount / 2 * unit.st / 100)
                             unit.st -= 5
                             unit.choosen_unit.hp -= damage
@@ -286,10 +289,18 @@ class Environment:
 
             self.units = filter(lambda unit: unit.is_alive, self.units)
 
+            for y, x_row in enumerate(self.map.ring):
+                for x, value in enumerate(x_row):
+                    if hasattr(value, "is_alive") and not value.is_alive:
+                        self.map.ring[y][x] = 0
+
+
             for unit in self.units:
                 if unit.is_alive:
                     unit.mp += random.randint(0, 2)
                     unit.st += random.randint(0, 2)
+
+
 
             if len(self.units) <= 1:
                 break
@@ -298,7 +309,16 @@ class Environment:
 if __name__ == "__main__":
     from fighters.skypro1111 import Skypro
     from fighters.bodidze import Bodidze
-    from fighters.dummy_enemy import DummyEnemy
+
+
+    u1 = Skypro('sky')
+
+    u2 = Unit('COCA')
+    u3 = Unit('TSOI')
+    u4 = Unit('Kaligula')
+    u5 = Unit ('Bod')
+
+    from fighters.dummy_enemy import DummyEnemy, BigDaddy
     from fighters.nikolaychik import Nikolaychik
 
 
@@ -312,7 +332,7 @@ if __name__ == "__main__":
     u3.position = (2, 3)
     u4 = Bodidze()
     u4.position = (2, 2)
-    u5 = Nikolaychik()
+    u5 = BigDaddy()
     u5.position = (3, 3)
 
 
