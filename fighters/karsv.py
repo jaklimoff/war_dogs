@@ -142,12 +142,15 @@ class Terminator(Unit):
             for i in real_en:
                 if i.hp <= 100 and i.hp <= self.lh_enemy:
                     self.lh_enemy = i
-            self._hit(self.lh_enemy)
+            if self.mp >= 50:
+                self._bighit(self.lh_enemy)
+            else:
+                self._hit(self.lh_enemy)
         elif real_en == []:
-            if sec_wave != []:
-                self._move(0, 0)
             if self.hp < 100:
                 self._heal(self)
+            elif sec_wave != []:
+                self._move(0, 0)
             else:
                 self.way_enemy = self.enemies[0]
                 for i in self.enemies:
