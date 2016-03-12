@@ -296,9 +296,9 @@ if __name__ == "__main__":
     u3 = Terminator()
     u3.position = (3, 3)
     u4 = Bodidze()
-    u4.position = (0, 0)
+    u4.position = (0, 1)
 
 
-    units = [u1, u2, u3]
+    units = [u1, u2, u3, u4]
 
     Environment(units)
