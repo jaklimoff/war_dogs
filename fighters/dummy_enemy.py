@@ -2,6 +2,7 @@ from final_battle import Unit
 import random
 import math
 
+
 class DummyEnemy(Unit):
     name = "Enemy"
 
@@ -25,3 +26,9 @@ class DummyEnemy(Unit):
         else:
             direction = self.find_perfect_direction()
             self._move(*direction)
+
+
+class BigDaddy(DummyEnemy):
+    name = "BigDaddy"
+    hp = 1000
+    mp = 200
