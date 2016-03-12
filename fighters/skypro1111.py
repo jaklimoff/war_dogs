@@ -33,6 +33,11 @@ class Skypro(Unit):
     def update(self):
         self.filtered_enemies = self.filter_enemies(self.enemies)
         enemy = self.choose_enemy(self.filtered_enemies)
+
+        if self.st >= 50:
+            getattr(self, "_bighit")(enemy)
+            return
+
         if self.filtered_enemies == []:
             self._move(random.randint(-1, 1), random.randint(-1, 1))
             return
