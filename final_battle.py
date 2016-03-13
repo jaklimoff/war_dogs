@@ -225,7 +225,7 @@ class Environment:
 
                     unit.update()
                     amount = random.randint(-5, 5) + unit.attack
-                    if unit.decision == "bighit" and unit.st > 25:
+                    if unit.decision == "bighit" and unit.st > 25 and unit.choosen_unit:
 
                         if self.distance(unit.choosen_unit.position, unit.position) <= 1:
                             damage = amount / 2 + (amount / 2 * unit.st / 100)
@@ -316,23 +316,23 @@ if __name__ == "__main__":
 
     u1 = Skypro()
     u1.position = (0, 0)
-    u2 = Bodidze('Bod')
-    u2.position = (0, 1)
-    u3 = Nikolaychik()
-    u3.position = (1, 2)
-    u4 = Terminator()
-    u4.position = (3, 3)
-    u5 = DummyEnemy('TSOI')
-    u5.position = (2, 3)
-    u6 = Bodidze()
-    u6.position = (2, 2)
+    # u2 = Bodidze('Bod')
+    # u2.position = (0, 1)
+    u3 = Nikolaychik('N4k')
+    u3.position = (3, 3)
+    # u4 = Terminator()
+    # u4.position = (3, 3)
+    # u5 = DummyEnemy('TSOI')
+    # u5.position = (2, 3)
+    # u6 = Bodidze()
+    # u6.position = (2, 2)
     # u5 = BigDaddy()
     # u5.position = (3, 3)
 
 
 
 
-    units = [u1, u2, u3, u4, u5, u6]
+    units = [u1, u3] #u2, u3, u4, u5, u6]
 
 
     Environment(units)
