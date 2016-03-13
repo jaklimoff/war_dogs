@@ -37,7 +37,6 @@ class Skypro(Unit):
 
     def action(self, enemies):
         enemy = self.choose_enemy(enemies)
-        print enemy.name
         if self.st >= 50:
             self._bighit(enemy)
             return
