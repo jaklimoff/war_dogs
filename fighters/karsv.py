@@ -174,7 +174,7 @@ class Terminator(Unit):
         if bd != None:
             if friend != None and self.mp > 10:
                 self._heal(friend)
-            elif bd.position < 2 and self.hp <= 20 and self.mp <=10 and self.st <= 10:
+            elif bd.position < 2 and self.hp <= bd.attack and self.mp <=10 and self.st <= 10:
                 x = bpm[0]
                 y = bpm[1]
                 self._move(x, y)
