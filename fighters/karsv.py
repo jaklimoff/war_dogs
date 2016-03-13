@@ -1,4 +1,5 @@
 from final_battle import Unit, Environment
+from dummy_enemy import BigDaddy
 import math, copy
 
 class Terminator(Unit):
@@ -63,8 +64,8 @@ class Terminator(Unit):
                        or (dist_x == self.position[0] and dist_y == self.position[1]) \
                        or self.map.cell_is_empty(dist_x, dist_y) == False:
                     continue
-                if self.dist(enemy.position[0], enemy.position[1], dist_x, dist_y) < dist:
-                    dist = self.dist(enemy.position[0], enemy.position[1], dist_x, dist_y)
+                if self.dist(enemy[0], enemy[1], dist_x, dist_y) < dist:
+                    dist = self.dist(enemy[0], enemy[1], dist_x, dist_y)
                     go = [ex, ey]
                     way.append(go)
         return way
@@ -131,33 +132,88 @@ class Terminator(Unit):
                         continue
         return way
 
+    def find_BD(self):
+        target = None
+        for i in self.enemies:
+            if type(i) == type(BigDaddy()):
+                target = i
+                return target
+            else:
+                return target
+
+    def healbot(self):
+        friend = self.enemies[0]
+        for i in self.enemies:
+            if type(i) != BigDaddy() and i.hp <= friend and i.hp < 50:
+                friend = i
+            else:
+                friend = None
+        if friend != None and friend.hp > 50:
+            friend = None
+        return friend
+
+    def back_pedal_destination(self):
+        corners = [[0, 0], [0, 3], [3, 0], [3, 3]]
+        dest = [3, 3]
+        dist_dest = self.distance(dest[0], dest[1])
+        for i, point in enumerate(corners):
+            if self.distance(point[0], point[1]) >= dist_dest:
+                dest = [point[0], point[1]]
+            else:
+                continue
+        first_step = self.en_coord(dest)
+        return first_step
+
+
+
 
     def update(self):
-        real_en = self.enemy()
-        sec_wave = self.second_wave()
-        if self.hp <= len(real_en) * 30:
-            self._heal(self)
-        elif real_en != []:
-            self.lh_enemy = real_en[0]
-            for i in real_en:
-                if i.hp <= 100 and i.hp <= self.lh_enemy:
-                    self.lh_enemy = i
-            if self.mp >= 50:
-                self._bighit(self.lh_enemy)
+        bd = self.find_BD()
+        friend = self.healbot()
+        bpm = self.back_pedal_destination()
+        if bd != None:
+            if bd.position < 2 and self.hp <= 20 and self.mp <=20 and self.st <= 10:
+                x = bpm[0]
+                y = bpm[1]
+                self._move(x, y)
+            elif friend != None:
+                self._heal(friend)
+            elif bd.position < 2:
+                if self.st > 25:
+                    self._bighit(bd)
+                else:
+                    self._hit(bd)
             else:
-                self._hit(self.lh_enemy)
-        elif real_en == []:
-            if self.hp < 100:
-                self._heal(self)
-            elif sec_wave != []:
-                self._move(0, 0)
-            else:
-                self.way_enemy = self.enemies[0]
-                for i in self.enemies:
-                    if i.hp <= 100 and i.hp < self.way_enemy.hp:
-                        self.way_enemy = i
-                way = self.astar(self.way_enemy)
-                way.reverse()
+                way = self.en_coord(bd.position)
                 x = way[0][0]
                 y = way[0][1]
                 self._move(x, y)
+        else:
+            real_en = self.enemy()
+            sec_wave = self.second_wave()
+            if self.hp <= len(real_en) * 30:
+                self._heal(self)
+            elif real_en != []:
+                self.lh_enemy = real_en[0]
+                for i in real_en:
+                    if i.hp <= 100 and i.hp <= self.lh_enemy:
+                        self.lh_enemy = i
+                if self.st >= 25:
+                    self._bighit(self.lh_enemy)
+                else:
+                    self._hit(self.lh_enemy)
+            elif real_en == []:
+                if self.hp < 100:
+                    self._heal(self)
+               # elif sec_wave != []:
+               #     self._move(0, 0)
+                else:
+                    self.way_enemy = self.enemies[0]
+                    for i in self.enemies:
+                        if i.hp <= 100 and i.hp <= self.way_enemy.hp:
+                            self.way_enemy = i
+                    way = self.en_coord(self.way_enemy.position)
+                    #way.reverse()
+                    x = way[0][0]
+                    y = way[0][1]
+                    self._move(x, y)
