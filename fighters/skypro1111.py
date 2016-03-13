@@ -16,39 +16,21 @@ class Skypro(Unit):
     def goto(self, enemies):
         enemy = self.choose_enemy(enemies)
         if enemy != None:
-            if self.hp <= 30:
-                if abs(self.position[0] - enemy.position[0]) > 1:
-                    if self.position[0] > enemy.position[0]:
-                        x1 = self.position[0]+1
-                    else:
-                        x1 = self.position[0]-1
+            if abs(self.position[0] - enemy.position[0]) > 1:
+                if self.position[0] > enemy.position[0]:
+                    x1 = self.position[0]-1
                 else:
-                    x1 = self.position[0]
-
-                if abs(self.position[1] - enemy.position[1]) > 1:
-                    if self.position[1] > enemy.position[1]:
-                        y1 = self.position[1]+1
-                    else:
-                        y1 = self.position[1]-1
-                else:
-                    y1 = self.position[1]
-
+                    x1 = self.position[0]+1
             else:
-                if abs(self.position[0] - enemy.position[0]) > 1:
-                    if self.position[0] > enemy.position[0]:
-                        x1 = self.position[0]-1
-                    else:
-                        x1 = self.position[0]+1
-                else:
-                    x1 = self.position[0]
+                x1 = self.position[0]
 
-                if abs(self.position[1] - enemy.position[1]) > 1:
-                    if self.position[1] > enemy.position[1]:
-                        y1 = self.position[1]-1
-                    else:
-                        y1 = self.position[1]+1
+            if abs(self.position[1] - enemy.position[1]) > 1:
+                if self.position[1] > enemy.position[1]:
+                    y1 = self.position[1]-1
                 else:
-                    y1 = self.position[1]
+                    y1 = self.position[1]+1
+            else:
+                y1 = self.position[1]
 
         self._move(y1, x1)
 
@@ -93,7 +75,7 @@ class Skypro(Unit):
         self.filtered_enemies = self.get_all_enemies(self.enemies)
         self.nearest_enemies = self.get_nearest_enemies(self.filtered_enemies)
 
-        if self.nearest_enemies == [] or self.hp <= 50:
+        if self.nearest_enemies == []:
             self.goto(self.filtered_enemies)
         else:
             self.action(self.nearest_enemies)
