@@ -95,7 +95,5 @@ class Skypro(Unit):
 
         if self.nearest_enemies == [] or self.hp <= 50:
             self.goto(self.filtered_enemies)
-            print 'goto'
         else:
             self.action(self.nearest_enemies)
-            print 'action'
