@@ -64,7 +64,7 @@ class Terminator(Unit):
                        or (dist_x == self.position[0] and dist_y == self.position[1]) \
                        or self.map.cell_is_empty(dist_x, dist_y) == False:
                     continue
-                if self.dist(enemy[0], enemy[1], dist_x, dist_y) < dist:
+                if self.dist(enemy[0], enemy[1], dist_x, dist_y) <= dist:
                     dist = self.dist(enemy[0], enemy[1], dist_x, dist_y)
                     go = [ex, ey]
                     way.append(go)
@@ -135,11 +135,10 @@ class Terminator(Unit):
     def find_BD(self):
         target = None
         for i in self.enemies:
-            if type(i) == type(BigDaddy()):
+            if type(i) == BigDaddy:
                 target = i
                 return target
-            else:
-                return target
+
 
     def healbot(self):
         friend = self.enemies[0]
@@ -172,7 +171,7 @@ class Terminator(Unit):
         if bd != None:
             if friend != None and self.mp > 10:
                 self._heal(friend)
-            elif bd.position < 2 and self.hp <= bd.attack and self.mp <=10 and self.st <= 10:
+            elif bd.position < 2 and self.hp <= bd.attack and self.mp <= 10 and self.st <= 10:
                 x = bpm[0]
                 y = bpm[1]
                 self._move(x, y)
@@ -182,9 +181,18 @@ class Terminator(Unit):
                 else:
                     self._hit(bd)
             else:
-                way = self.en_coord(bd.position)
-                x = way[0][0]
-                y = way[0][1]
+                if bd.x > self.x:
+                    x = 1
+                elif bd.x == self.x:
+                    x = 0
+                else:
+                    x = -1
+                if bd.y > self.y:
+                    y = 1
+                elif bd.y == self.y:
+                    y = 0
+                else:
+                    y = -1
                 self._move(x, y)
         else:
             real_en = self.enemy()
@@ -210,8 +218,20 @@ class Terminator(Unit):
                     for i in self.enemies:
                         if i.hp <= 100 and i.hp <= self.way_enemy.hp:
                             self.way_enemy = i
-                    way = self.en_coord(self.way_enemy.position)
+                    #way = self.en_coord(self.way_enemy.position)
                     #way.reverse()
-                    x = way[0][0]
-                    y = way[0][1]
+                    if self.way_enemy.x > self.x:
+                        x = 1
+                    elif self.way_enemy.x == self.x:
+                        x = 0
+                    else:
+                        x = -1
+                    if self.way_enemy.y > self.y:
+                        y = 1
+                    elif self.way_enemy.y == self.y:
+                        y = 0
+                    else:
+                        y = -1
+                   # x = way[0][0]
+                    #y = way[0][1]
                     self._move(x, y)
