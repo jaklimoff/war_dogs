@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 __author__ = 'skypro1111'
 
-from final_battle import Unit, Environment
+from final_battle import Unit
+import random
 
 class Skypro(Unit):
     dmg_coef = 1
@@ -14,25 +15,25 @@ class Skypro(Unit):
         self.nearest_enemies = []
 
     def goto(self, enemies):
-        enemy = self.choose_enemy(enemies)
-        if enemy != None:
-            if abs(self.position[0] - enemy.position[0]) > 1:
-                if self.position[0] > enemy.position[0]:
-                    x1 = self.position[0]-1
-                else:
-                    x1 = self.position[0]+1
-            else:
-                x1 = self.position[0]
+        # enemy = self.choose_enemy(enemies)
+        # if enemy != None:
+        #     if abs(self.position[0] - enemy.position[0]) > 1:
+        #         if self.position[0] > enemy.position[0]:
+        #             x1 = self.position[0]-1
+        #         else:
+        #             x1 = self.position[0]+1
+        #     else:
+        #         x1 = self.position[0]
+        #
+        #     if abs(self.position[1] - enemy.position[1]) > 1:
+        #         if self.position[1] > enemy.position[1]:
+        #             y1 = self.position[1]-1
+        #         else:
+        #             y1 = self.position[1]+1
+        #     else:
+        #         y1 = self.position[1]
 
-            if abs(self.position[1] - enemy.position[1]) > 1:
-                if self.position[1] > enemy.position[1]:
-                    y1 = self.position[1]-1
-                else:
-                    y1 = self.position[1]+1
-            else:
-                y1 = self.position[1]
-
-        self._move(y1, x1)
+        self._move(random.randint(-1,1), random.randint(-1,1))
 
 
     def action(self, enemies):
@@ -65,9 +66,7 @@ class Skypro(Unit):
         else:
             mn = 0
         for enm in enemies:
-            if enm.name == 'BigDaddy':
-                return enm
-            elif enm.hp == mn:
+            if enm.hp == mn:
                 return enm
 
     def update(self):
