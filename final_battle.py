@@ -225,7 +225,7 @@ class Environment:
 
                     unit.update()
                     amount = random.randint(-5, 5) + unit.attack
-                    if unit.decision == "bighit" and unit.st > 25:
+                    if unit.decision == "bighit" and unit.st > 25 and unit.choosen_unit:
 
                         if self.distance(unit.choosen_unit.position, unit.position) <= 1:
                             damage = amount / 2 + (amount / 2 * unit.st / 100)
@@ -308,14 +308,6 @@ class Environment:
 
 if __name__ == "__main__":
     from fighters.skypro1111 import Skypro
-
-    from fighters.itymoshenko import ITymoshenko
-
-    u1 = Skypro('sky')
-    u2 = ITymoshenko('Tim')
-    u3 = Unit('TSOI')
-    u4 = Unit('Kaligula')
-
     from fighters.karsv import Terminator
     from fighters.bodidze import Bodidze
     from fighters.dummy_enemy import DummyEnemy, BigDaddy
@@ -323,22 +315,19 @@ if __name__ == "__main__":
 
 
     u1 = Skypro()
-<<<<<<< HEAD
-
     u1.position = (0, 0)
-    u2 = ITymoshenko()
-    u2.position = (0, 1)
-    u3 = DummyEnemy('TSOI')
-    u3.position = (1, 2)
-    u3 = DummyEnemy('TSOI')
-    u3.position = (2, 3)
-
-    u1.position = (3, 3)
-    u2 = DummyEnemy('COCA')
-    u2.position = (1, 2)
-    u2.hp = 30
-=======
-    u1.position = (0, 0)
+    # u2 = Bodidze('Bod')
+    # u2.position = (0, 1)
+    u3 = Nikolaychik('N4k')
+    u3.position = (3, 3)
+    # u4 = Terminator()
+    # u4.position = (3, 3)
+    # u5 = DummyEnemy('TSOI')
+    # u5.position = (2, 3)
+    # u6 = Bodidze()
+    # u6.position = (2, 2)
+    # u5 = BigDaddy()
+    # u5.position = (3, 3)
     u2 = Bodidze('Bod')
     u2.position = (0, 1)
     u3 = Nikolaychik()
@@ -346,21 +335,20 @@ if __name__ == "__main__":
     u4 = Terminator()
     u4.position = (3, 3)
     u5 = DummyEnemy('TSOI')
-    u5.position = (2, 3)
+
+    u5.position = (0, 0)
     u6 = Bodidze()
     u6.position = (2, 2)
-    # u5 = BigDaddy()
-    # u5.position = (3, 3)
-
->>>>>>> 3b1001021b106952312d6f8f12182eaeba3254a4
+    u7 = BigDaddy()
+    u7.position = (0, 3)
 
 
 
-<<<<<<< HEAD
-    units = [u1, u2, u3, u4]
-    units = [u1, u2, u3, u4, u5]
-=======
-    units = [u1, u2, u3, u4, u5, u6]
->>>>>>> 3b1001021b106952312d6f8f12182eaeba3254a4
+
+
+    units = [u4, u5, u7]
+
+    units = [u1, u3] #u2, u3, u4, u5, u6]
+
 
     Environment(units)
