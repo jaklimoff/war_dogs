@@ -172,12 +172,12 @@ class Terminator(Unit):
         friend = self.healbot()
         bpm = self.back_pedal_destination()
         if bd != None:
-            if bd.position < 2 and self.hp <= 20 and self.mp <=20 and self.st <= 10:
+            if friend != None and self.mp > 10:
+                self._heal(friend)
+            elif bd.position < 2 and self.hp <= 20 and self.mp <=10 and self.st <= 10:
                 x = bpm[0]
                 y = bpm[1]
                 self._move(x, y)
-            elif friend != None:
-                self._heal(friend)
             elif bd.position < 2:
                 if self.st > 25:
                     self._bighit(bd)
