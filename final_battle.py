@@ -316,7 +316,6 @@ if __name__ == "__main__":
 
     u1 = Skypro()
     u1.position = (0, 0)
-<<<<<<< HEAD
     # u2 = Bodidze('Bod')
     # u2.position = (0, 1)
     u3 = Nikolaychik('N4k')
@@ -329,7 +328,6 @@ if __name__ == "__main__":
     # u6.position = (2, 2)
     # u5 = BigDaddy()
     # u5.position = (3, 3)
-=======
     u2 = Bodidze('Bod')
     u2.position = (0, 1)
     u3 = Nikolaychik()
@@ -345,16 +343,12 @@ if __name__ == "__main__":
     u7.position = (0, 3)
 
 
->>>>>>> a3704e21f8dd96d365841cbd587705a025ee424f
 
 
 
     units = [u4, u5, u7]
 
-<<<<<<< HEAD
     units = [u1, u3] #u2, u3, u4, u5, u6]
-=======
->>>>>>> a3704e21f8dd96d365841cbd587705a025ee424f
 
 
     Environment(units)

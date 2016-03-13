@@ -27,3 +27,4 @@ arg1 = A(10)
 arg2 = A(5)
 
 print arg1.value
+
