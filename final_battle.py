@@ -323,6 +323,7 @@ if __name__ == "__main__":
     u4 = Terminator()
     u4.position = (3, 3)
     u5 = DummyEnemy('TSOI')
+
     u5.position = (0, 0)
     u6 = Bodidze()
     u6.position = (2, 2)
@@ -332,7 +333,9 @@ if __name__ == "__main__":
 
 
 
+
     units = [u4, u5, u7]
+
 
 
     Environment(units)
