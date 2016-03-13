@@ -165,8 +165,6 @@ class Terminator(Unit):
         return first_step
 
 
-
-
     def update(self):
         bd = self.find_BD()
         friend = self.healbot()
