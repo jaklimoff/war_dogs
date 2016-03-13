@@ -1,12 +1,12 @@
 from final_battle import Unit
-import random
 import math
 
 class Bodidze(Unit):
     name = "Bod"
 
     def update(self):
-        self._move(random.randint(1, 1), random.randint(1, 1))
+        if self.hp < 60:
+            getattr(self, "_heal")(self)
 
         close_enemies = []
         for en in self.enemies:
@@ -18,7 +18,24 @@ class Bodidze(Unit):
 
         if close_enemies:
             weak_enemy = min(close_enemies, key=lambda x: x.hp)
+            if self.st >= 50:
+                getattr(self, "_bighit")(weak_enemy)
             self._hit(weak_enemy)
+        else:
+            dist=[]
+            my_x=0
+            my_y=0
+            for en in self.enemies:
+                if en != self and en.hp > 0:
+                   dist.append((en.x,en.y))
 
-        if self.hp < 60:
-            getattr(self, "_heal")(self)
+            close_x,close_y=min(dist)
+            if close_x>self.x:
+                my_x=1
+            if close_x<self.x:
+                my_x=-1
+            if close_y>self.y:
+                my_x=1
+            if close_y<self.y:
+                my_x=-1
+            self._move(my_x, my_y)
