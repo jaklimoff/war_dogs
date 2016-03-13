@@ -5,6 +5,8 @@ class Bodidze(Unit):
     name = "Bod"
 
     def update(self):
+        if self.hp < 60:
+            getattr(self, "_heal")(self)
 
         close_enemies = []
         for en in self.enemies:
@@ -25,7 +27,7 @@ class Bodidze(Unit):
             my_y=0
             for en in self.enemies:
                 if en != self and en.hp > 0:
-                   dist.append(self,(en.x,en.y))
+                   dist.append((en.x,en.y))
 
             close_x,close_y=min(dist)
             if close_x>self.x:
@@ -37,6 +39,3 @@ class Bodidze(Unit):
             if close_y<self.y:
                 my_x=-1
             self._move(my_x, my_y)
-                        
-        if self.hp < 60:
-            getattr(self, "_heal")(self)
